@@ -1,0 +1,831 @@
+gsap.registerPlugin(ScrollTrigger)
+
+const interactiveJS = () => {
+    // Clear Scroll Memory
+    window.history.scrollRestoration = 'manual'
+
+    // Canvas
+        // Change '.webgl' with a canvas querySelector
+    const canvas = document.querySelector('.webgl')
+
+    // Scene
+    const scene = new THREE.Scene()
+
+    // Lighting
+    const ambientLight = new THREE.AmbientLight(0xf3f3f3, 1)
+    scene.add(ambientLight)
+
+    const directionalLight = new THREE.DirectionalLight(0xf3f3f3, 0.5)
+    directionalLight.position.set(0, 10, 10)
+
+    scene.add(directionalLight)
+    // Sizes
+    const sizes = {
+        width: window.innerWidth,
+        height: window.innerHeight
+    }
+
+    let isPortrait = false
+
+    if (window.innerWidth < window.innerHeight) {
+        isPortrait = true
+    }
+
+    window.addEventListener('resize', () => {    
+        // Update sizes
+        sizes.width = window.innerWidth
+        sizes.height = window.innerHeight
+
+        // Update camera
+        camera.aspect = sizes.width / sizes.height
+        camera.updateProjectionMatrix()
+
+        // Update renderer
+        renderer.setSize(sizes.width, sizes.height)
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
+        let prevIsPortrait = isPortrait
+        if (window.innerWidth < window.innerHeight) {
+            isPortrait = true
+        }
+        else {
+            isPortrait = false
+        }
+
+        if (prevIsPortrait != isPortrait) {
+            location.reload()
+        }
+    })
+
+    // Loaders
+    const textureLoader = new THREE.TextureLoader()
+    const mainPhotoTexture = textureLoader.load('./images/MainPhoto.png')
+
+    // GLTF Loader
+    const gltfLoader = new THREE.GLTFLoader()
+
+    // 3D Objects
+    // ----------------------------------------------------------------
+
+    // ----------------------------------------------------------------
+
+    // Base camera
+    const camera = new THREE.PerspectiveCamera(45, sizes.width / sizes.height, 0.1, 100)
+    camera.position.set(0,0,10)
+    scene.add(camera)
+
+    // Controls
+    // const controls = new THREE.OrbitControls(camera, canvas)
+    // controls.enabled = true
+
+    // Renderer
+    const renderer = new THREE.WebGLRenderer({
+        canvas: canvas,
+        antialias: true,
+        alpha: true
+    })
+    renderer.setSize(sizes.width, sizes.height)
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    renderer.shadowMap.enabled = false
+
+    // Animations
+
+    const startupAnimations = () => {
+
+    }
+
+    // Events
+    // --------------------------------------
+
+    // Raycast
+    const raycaster = new THREE.Raycaster()
+    const pointer = new THREE.Vector3()
+    const point = new THREE.Vector3()
+
+    // Mouse
+    const mouse = {
+        x: 0,
+        y: 0
+    }
+
+    const mouseFlip = {
+        x: 0,
+        y: 0
+    }
+
+    let sliderWidth = 4296
+
+    // Scroll Events
+    let lastScrollTop = 0
+    window.addEventListener('scroll', () => {
+        let st = window.pageYOffset || document.documentElement.scrollTop
+        if (st > lastScrollTop){
+            // Down
+
+        } else {
+            // Up
+
+        }
+        lastScrollTop = st <= 0 ? 0 : st;
+    }, false)
+
+    // Pointer Events
+    document.addEventListener('pointermove', (e) => {
+        mouse.x = e.clientX/window.innerWidth - 0.5
+        mouse.y = -(e.clientY/window.innerHeight - 0.5)
+
+        mouseFlip.x = mouse.x + 0.5
+
+        // Perspective
+        // gsap.to('.perspectiveChangeDiv', {duration: 1, rotateY: mouse.x * 10 + 'deg', rotateX: -mouse.y * 10 + 'deg', x: mouse.x * 20, y: -mouse.y * 20})
+
+        // 3D --------------
+
+        // Update Pointer Coordinates
+        pointer.set(
+            ( e.clientX / window.innerWidth ) * 2 - 1,
+            - ( e.clientY / window.innerHeight ) * 2 + 1,
+            0.575
+        )
+
+        // Match Mouse and 3D Pointer Coordinates
+        pointer.unproject(camera)
+        pointer.sub(camera.position).normalize()
+        let distance = -(camera.position.z) / pointer.z
+        point.copy(camera.position).add((pointer.multiplyScalar(distance)))
+
+    })
+
+    // --------------------------------------
+
+    // Animate
+    // --------------------------------------
+    const clock = new THREE.Clock()
+
+    const tick = () =>
+    {
+        const elapsedTime = clock.getElapsedTime()
+        
+        // Camera Movement
+        // gsap.to(camera.rotation, {duration: 1, x: mouse.y * 0.01, y: - mouse.x * 0.01})
+
+        // Render
+        renderer.render(scene, camera)
+
+        // Call tick again on the next frame
+        window.requestAnimationFrame(tick)
+    }
+
+    // ScrollTriggers
+    // -------------------------------------------------
+    // gsap.fromTo(businessCardGroup.rotation, {y: 0}, {
+    //     scrollTrigger: {
+    //         trigger: '.mainBody',
+    //         start: () =>  document.querySelector('.mainBody').clientHeight*0  + ' top',
+    //         end: () =>  document.querySelector('.mainBody').clientHeight*1  + ' top',
+    //         // toggleActions: "play none none reverse",
+    //         // snap: true,
+    //         scrub: true,
+    //         // pin: false,
+    //         // markers: true,
+    //     },
+    //     y: Math.PI,
+    //     ease: 'none'
+    // })
+
+    gsap.fromTo('.businessCardFront', {rotateY: '0deg'}, {
+        scrollTrigger: {
+            trigger: '.mainBody',
+            start: () =>  document.querySelector('.mainBody').clientHeight*0  + ' top',
+            end: () =>  document.querySelector('.mainBody').clientHeight*1  + ' top',
+            // toggleActions: "play none none reverse",
+            // snap: true,
+            scrub: true,
+            // pin: false,
+            // markers: true,
+        },
+        rotateY: '180deg',
+        ease: 'none'
+    })
+
+    gsap.fromTo('.businessCardBack', {rotateY: '-180deg'}, {
+        scrollTrigger: {
+            trigger: '.mainBody',
+            start: () =>  document.querySelector('.mainBody').clientHeight*0  + ' top',
+            end: () =>  document.querySelector('.mainBody').clientHeight*1  + ' top',
+            // toggleActions: "play none none reverse",
+            // snap: true,
+            scrub: true,
+            // pin: false,
+            // markers: true
+        },
+        rotateY: '0deg',
+        ease: 'none'
+    })
+
+    gsap.fromTo('.businessCardBack', {opacity: 0}, {
+        scrollTrigger: {
+            trigger: '.mainBody',
+            start: () =>  document.querySelector('.mainBody').clientHeight*0.5  + ' top',
+            toggleActions: "restart none none reverse",
+            // snap: true,
+            // scrub: true,
+            // pin: false,
+            // markers: true
+        },
+        duration: 0.01,
+        opacity: 1,
+        ease: 'none'
+    })
+
+    gsap.fromTo('.businessCardFront', {opacity: 1}, {
+        scrollTrigger: {
+            trigger: '.mainBody',
+            start: () =>  document.querySelector('.mainBody').clientHeight*0.5  + ' top',
+            toggleActions: "restart none none reverse",
+            // snap: true,
+            // scrub: true,
+            // pin: false,
+            // markers: true
+        },
+        duration: 0.01,
+        opacity: 0,
+        ease: 'none'
+    })
+
+    gsap.to('.businessCardBack', {duration: 0, opacity: 0})
+    
+    // Image Loader
+
+    let images = document.images
+    let len = images.length
+    let counter = 0
+
+    const incrementCounter = () => {
+        counter++
+        if ( counter >= (len - 1) ) {
+            gsap.to('.loadingPage', {duration: 1, delay: 1, opacity: 0})
+            setTimeout(() => {
+                startupAnimations()
+            }, 1000)
+        }
+    }
+
+    for (let i = 0; i < images.length; i++) {
+        if(images[i].complete) {
+            incrementCounter()
+        }
+        else {
+            images[i].addEventListener( 'load', () => {
+                incrementCounter()
+            }, false )
+        }
+    }
+
+    tick()
+}
+
+interactiveJS()
+
+const stripCanvas = () => {
+
+    // Canvas
+        // Change '.webgl' with a canvas querySelector
+    const canvas = document.querySelector('.strip')
+
+    // Scene
+    const scene = new THREE.Scene()
+
+    // Lighting
+    // const ambientLight = new THREE.AmbientLight(0xf3f3f3, 1)
+    // scene.add(ambientLight)
+
+    // const directionalLight = new THREE.DirectionalLight(0xf3f3f3, 0.5)
+    // directionalLight.position.set(0, 10, 10)
+
+    // scene.add(directionalLight)
+
+    // Sizes
+    const sizes = {
+        width: 1100,
+        height: 1100*2/3.5
+    }
+
+    let isPortrait = false
+
+    if (window.innerWidth < window.innerHeight) {
+        isPortrait = true
+    }
+
+    window.addEventListener('resize', () => {    
+        // Update sizes
+        sizes.width = 1100
+        sizes.height = 1100*2/3.5
+
+        // Update camera
+        camera.aspect = sizes.width / sizes.height
+        camera.updateProjectionMatrix()
+
+        // Update renderer
+        renderer.setSize(sizes.width, sizes.height)
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
+        let prevIsPortrait = isPortrait
+        if (window.innerWidth < window.innerHeight) {
+            isPortrait = true
+        }
+        else {
+            isPortrait = false
+        }
+
+        if (prevIsPortrait != isPortrait) {
+            location.reload()
+        }
+    })
+
+    // Loaders
+    const textureLoader = new THREE.TextureLoader()
+    const mainPhotoTexture = textureLoader.load('./images/MainPhoto.png')
+
+    // GLTF Loader
+    const gltfLoader = new THREE.GLTFLoader()
+
+    // 3D Objects
+    // ----------------------------------------------------------------
+
+    const boxGeometry = new THREE.BoxGeometry(0.75,0.75,0.75)
+    const boxMaterial = new THREE.MeshNormalMaterial({
+    })
+    const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial)
+    scene.add(boxMesh)
+
+    const boxBobbleGroup = new THREE.Group
+    boxBobbleGroup.add(boxMesh)
+    scene.add(boxBobbleGroup)
+
+    const boxGroup = new THREE.Group
+    boxGroup.add(boxBobbleGroup)
+    boxGroup.position.set(4.7, 0 + 2, 0)
+    scene.add(boxGroup)
+
+    const tetraGeometry = new THREE.TetrahedronGeometry(0.7, 0)
+    const tetraMaterial = new THREE.MeshNormalMaterial({
+    })
+    const tetraMesh = new THREE.Mesh(tetraGeometry, tetraMaterial)
+    scene.add(tetraMesh)
+
+    const tetraBobbleGroup = new THREE.Group
+    tetraBobbleGroup.add(tetraMesh)
+    scene.add(tetraBobbleGroup)
+
+    const tetraGroup = new THREE.Group
+    tetraGroup.add(tetraBobbleGroup)
+    tetraGroup.position.set(9.35, 2 + 2, -5)
+    scene.add(tetraGroup)
+
+    const sphereGeometry = new THREE.SphereGeometry(0.5, 32, 16)
+    const sphereMaterial = new THREE.MeshNormalMaterial({
+    })
+    const sphereMesh = new THREE.Mesh(sphereGeometry, sphereMaterial)
+    scene.add(sphereMesh)
+
+    const sphereBobbleGroup = new THREE.Group
+    sphereBobbleGroup.add(sphereMesh)
+    scene.add(sphereBobbleGroup)
+
+    const sphereGroup = new THREE.Group
+    sphereGroup.add(sphereBobbleGroup)
+    sphereGroup.position.set(10.75, 0.5 + 2, -8)
+    scene.add(sphereGroup)
+
+    const boxRotations = {
+        x: (Math.random() * 1.9 + 0.1) - 1,
+        y: (Math.random() * 1.9 + 0.1) - 1,
+        z: (Math.random() * 1.9 + 0.1) - 1,
+    } 
+
+    const tetraRotations = {
+        x: (Math.random() * 1.9 + 0.1) - 1,
+        y: (Math.random() * 1.9 + 0.1) - 1,
+        z: (Math.random() * 1.9 + 0.1) - 1,
+    } 
+
+    const sphereRotations = {
+        x: (Math.random() * 1.9 + 0.1) - 1,
+        y: (Math.random() * 1.9 + 0.1) - 1,
+        z: (Math.random() * 1.9 + 0.1) - 1,
+    } 
+
+    // Particles    
+    // Parameters
+    const parameters = {
+        count: 2000,
+        size: 0.1,
+        aspect: window.innerWidth/window.innerHeight,
+        radius: 0.5,
+        groupDiameter: 3
+    }
+
+    const mainColors = [new THREE.Color(0x45e2b6), new THREE.Color(0x3b37d0), new THREE.Color(0xac2dd6)]
+    // Initializations
+    const particleGroup = []
+    const originalPositions = []
+    const allParticles = new THREE.Group
+
+    // Make Particles
+    for (let i = 0; i < parameters.count; i++) {
+        // Center Particles
+        const vertices = []
+        vertices.push(0,0,0)
+
+        const particleG = new THREE.BufferGeometry()
+        particleG.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3))
+
+        const particleM = new THREE.PointsMaterial({
+            color: mainColors[i%3],
+            size: parameters.size,
+            depthWrite: true,
+            sizeAttenuation: true,
+            blending: THREE.AdditiveBlending,
+            transparent: true
+        })
+        
+        const particles = new THREE.Points(particleG, particleM)
+
+        // Randomize Particle Position in a Circle
+        const x = (Math.random() - 0.5) * 2 - 5.5
+        const y = (Math.random() - 0.5) * 9
+        const z = 0
+
+        // Save Original Positions
+        originalPositions[i] = [x,y]
+
+        particleGroup.push(particles)
+        particleGroup[i].position.set(x,y,z)
+        scene.add(particles)
+        allParticles.add(particles)
+    }
+
+    scene.add(allParticles)
+
+    // ----------------------------------------------------------------
+
+    // Base camera
+    const camera = new THREE.PerspectiveCamera(45, sizes.width / sizes.height, 0.1, 100)
+    camera.position.set(0,0,10)
+    scene.add(camera)
+
+    // Controls
+    // const controls = new THREE.OrbitControls(camera, canvas)
+    // controls.enabled = true
+
+    // Renderer
+    const renderer = new THREE.WebGLRenderer({
+        canvas: canvas,
+        antialias: true,
+        alpha: true
+    })
+    renderer.setSize(sizes.width, sizes.height)
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    renderer.shadowMap.enabled = false
+
+    // Animations
+
+    const startupAnimations = () => {
+        headerAnimations()
+    }
+    
+    // Skills Events
+    const skills = document.querySelectorAll('.skill')
+    const skillUnderlines = document.querySelectorAll('.skillUnderline')
+    const skillTexts = document.querySelectorAll('.skillText')
+    let prevSkillIndex = 0
+
+    for (let i = 0; i < skills.length; i++) {
+        gsap.to(skillUnderlines[i], {duration: 0, width: 50})
+        skills[i].addEventListener('mouseenter', () => {
+            if (prevSkillIndex != i) {
+                gsap.to(skillUnderlines[prevSkillIndex], {duration: 0.35, width: 50, ease: 'Power1.easeOut'})
+                gsap.to(skillUnderlines[i], {duration: 0.35, width: 338, ease: 'Power1.easeOut'})
+                gsap.to('.bracketDiv', {duration: 0.35, y: 145 + i * 43, ease: 'Power1.easeOut'})
+                prevSkillIndex = i
+            }
+        })
+    }
+
+    // Header Animations
+    const headerAnimations = () => {
+        gsap.to('.headerDiv', {duration: 0.75, delay: 3, width: 600, ease: 'Power1.easeOut'})
+
+        gsap.to('.titleTopRightContainer', {duration: 0.75, delay: 3.2, x: 40, ease: 'Power1.easeOut'})
+        gsap.to('.titleBotRightContainer', {duration: 0.75, delay: 3.2, x: -40, ease: 'Power1.easeOut'})
+
+        gsap.to('.quotationDiv', {duration: 2.6, rotateZ: 360, ease: 'Power1.easeOut'})
+        gsap.to('.quotationDiv', {duration: 0.75, delay: 2.6, y: -235, ease: 'Power1.easeOut'})
+
+        gsap.to('.quotationGap', {duration: 0.75, delay: 3.75, width: 400, ease: 'Power1.easeOut'})
+
+        gsap.to('.topSummaryTextDiv', {duration: 1.25, delay: 3.75, opacity: 1, ease: 'Power1.easeOut'})
+        gsap.to('.bottomSummaryTextDiv', {duration: 1.25, delay: 4.25, opacity: 1, ease: 'Power1.easeOut'})
+
+        gsap.to('.bracketDiv', {duration: 2.6, rotateZ: -360, ease: 'Power1.easeOut'})
+        gsap.to('.bracketDiv', {duration: 0.75, delay: 2.6, y: 145, ease: 'Power1.easeOut'})
+        gsap.to(skillUnderlines[0], {duration: 0.35, delay: 3, width: 338, ease: 'Power1.easeOut'})
+        
+        for (let i = 0; i < skillTexts.length; i++) {
+            gsap.to(skillTexts[i], {duration: 0.6, delay: 5 + i * 0.5, x: 0, ease: 'Power1.easeOut'})
+        }
+    }
+
+    // Events
+    // --------------------------------------
+
+    // Header Slider Events
+    let isNightMode = false
+
+    document.querySelector('.mainPhotoSlider').addEventListener('click', () => {
+        if (flipValue.value < 0.5) {
+            if (isNightMode == false) {
+                isNightMode = true
+                gsap.to('.headerSliderBody', {duration: 0.4, x: 400})
+                gsap.to('.headerTextDiv', {duration: 0, opacity: 0})
+                gsap.to('.headerTextReverseDiv', {duration: 0, opacity: 1})
+    
+                // Front
+                gsap.to('.businessCardFront', {duration: 0, backgroundColor: '#192734', color: '#ffffff'})
+                gsap.to('.headerDiv', {duration: 0, backgroundColor: '#22303c'})
+
+                gsap.to('.titleTopLeftContainer', {duration: 0.75, delay: 0.1, x: -40, ease: 'Power1.easeOut'})
+                gsap.to('.titleBotLeftContainer', {duration: 0.75, delay: 0.1, x: 40, ease: 'Power1.easeOut'})
+
+                gsap.to('.titleTopRightContainer', {duration: 0.75, delay: 0.1, x: 0, ease: 'Power1.easeOut'})
+                gsap.to('.titleBotRightContainer', {duration: 0.75, delay: 0.1, x: 0, ease: 'Power1.easeOut'})
+    
+                // Back
+                gsap.to('.businessCardBack', {duration: 0, backgroundColor: '#192734', color: '#ffffff'})
+            }
+            else {
+                isNightMode = false
+                gsap.to('.headerSliderBody', {duration: 0.4, x: 0})
+                gsap.to('.headerTextDiv', {duration: 0, opacity: 1})
+                gsap.to('.headerTextReverseDiv', {duration: 0, opacity: 0})
+    
+                // Front
+                gsap.to('.businessCardFront', {duration: 0, backgroundColor: '#f5f5f5', color: '#000000'})
+                gsap.to('.headerDiv', {duration: 0, backgroundColor: '#E6E6FA'})
+
+                gsap.to('.titleTopLeftContainer', {duration: 0.75, delay: 0.1, x: 0, ease: 'Power1.easeOut'})
+                gsap.to('.titleBotLeftContainer', {duration: 0.75, delay: 0.1, x: 0, ease: 'Power1.easeOut'})
+
+                gsap.to('.titleTopRightContainer', {duration: 0.75, delay: 0.1, x: 40, ease: 'Power1.easeOut'})
+                gsap.to('.titleBotRightContainer', {duration: 0.75, delay: 0.1, x: -40, ease: 'Power1.easeOut'})
+    
+                // Back
+                gsap.to('.businessCardBack', {duration: 0, backgroundColor: '#f5f5f5', color: '#000000'})
+            }
+        }
+    })
+
+    // Raycast
+    const raycaster = new THREE.Raycaster()
+    const pointer = new THREE.Vector3()
+    const point = new THREE.Vector3()
+
+    // Mouse
+    const mouse = {
+        x: 0,
+        y: 0
+    }
+
+    const mouseFlip = {
+        x: 0,
+        y: 0
+    }
+
+    let sliderWidth = 4296
+
+    // Scroll Events
+    let lastScrollTop = 0
+    window.addEventListener('scroll', () => {
+        let st = window.pageYOffset || document.documentElement.scrollTop
+        if (st > lastScrollTop){
+            // Down
+
+        } else {
+            // Up
+
+        }
+        lastScrollTop = st <= 0 ? 0 : st;
+    }, false)
+
+    // Pointer Events
+    document.addEventListener('pointermove', (e) => {
+        mouse.x = e.clientX/window.innerWidth - 0.5
+        mouse.y = -(e.clientY/window.innerHeight - 0.5)
+
+        // 3D --------------
+
+        // Update Pointer Coordinates
+        pointer.set(
+            (( e.clientX / window.innerWidth ) * 2 - 1) * (window.innerWidth/1100),
+            (- ( e.clientY / window.innerHeight ) * 2 + 1) * (window.innerHeight/(1100 * 2/3.5)),
+            0.575
+        )
+
+        // Match Mouse and 3D Pointer Coordinates
+        pointer.unproject(camera)
+        pointer.sub(camera.position).normalize()
+        let distance = -(camera.position.z) / pointer.z
+        point.copy(camera.position).add((pointer.multiplyScalar(distance)))
+
+        // Check for Affected Particles
+        for (let i = 0; i < particleGroup.length; i++) {
+            const distanceFromPointerSquared = (particleGroup[i].position.x - pointer.x)**2 + (particleGroup[i].position.y - pointer.y)**2
+            const directionVector = new THREE.Vector2(particleGroup[i].position.x - pointer.x, particleGroup[i].position.y - pointer.y)
+
+            // Case: Affected
+            if (distanceFromPointerSquared < parameters.radius && flipValue.value < 0.5) {
+                // Spread
+                gsap.to(particleGroup[i].position, {duration: 0.1, x: particleGroup[i].position.x + directionVector.x * 0.5, y: particleGroup[i].position.y + directionVector.y * 0.5})
+
+                // Size Change
+                gsap.to(particleGroup[i].material, {duration: 0.1, size: 0.15})
+                gsap.to(particleGroup[i].material, {duration: 1, delay: 0.1, size: parameters.size})
+
+                if (isNightMode == false) {
+                    gsap.to(particleGroup[i].position, {duration: 1, delay: 0.1, x: originalPositions[i][0], y: originalPositions[i][1]})
+                }
+            }
+        } 
+
+    })
+
+    // Flip Indicator
+    let flipValue = {
+        value: 0
+    }
+
+    // --------------------------------------
+
+    // Animate
+    // --------------------------------------
+    const clock = new THREE.Clock()
+
+    const tick = () =>
+    {
+        const elapsedTime = clock.getElapsedTime()
+        
+        // Camera Movement
+        // gsap.to(camera.rotation, {duration: 1, x: mouse.y * 0.01, y: - mouse.x * 0.01})
+
+        if (flipValue.value < 0.5) {
+            gsap.to('.businessCardFront', {duration: 0, pointerEvents: 'auto'})
+            gsap.to('.businessCardBack', {duration: 0, pointerEvents: 'none'})
+        }
+        else {
+            gsap.to('.businessCardFront', {duration: 0, pointerEvents: 'none'})
+            gsap.to('.businessCardBack', {duration: 0, pointerEvents: 'auto'})
+        }
+
+        // Object Movement
+        boxMesh.rotation.set(elapsedTime * boxRotations.x, elapsedTime * boxRotations.y, elapsedTime * boxRotations.z)
+        boxBobbleGroup.position.y = Math.sin(elapsedTime) * 0.25
+
+        tetraMesh.rotation.set(elapsedTime * tetraRotations.x, elapsedTime * tetraRotations.y, elapsedTime * tetraRotations.z)
+        tetraBobbleGroup.position.y = Math.sin(elapsedTime + Math.PI/3) * 0.25
+
+        sphereMesh.rotation.set(elapsedTime * sphereRotations.x, elapsedTime * sphereRotations.y, elapsedTime * sphereRotations.z)
+        sphereBobbleGroup.position.y = Math.sin(elapsedTime + Math.PI*2/3) * 0.25
+
+        // Render
+        renderer.render(scene, camera)
+
+        // Call tick again on the next frame
+        window.requestAnimationFrame(tick)
+    }
+
+    // ScrollTriggers
+    // -------------------------------------------------
+    // gsap.fromTo(businessCardGroup.rotation, {y: 0}, {
+    //     scrollTrigger: {
+    //         trigger: '.mainBody',
+    //         start: () =>  document.querySelector('.mainBody').clientHeight*0  + ' top',
+    //         end: () =>  document.querySelector('.mainBody').clientHeight*1  + ' top',
+    //         // toggleActions: "play none none reverse",
+    //         // snap: true,
+    //         scrub: true,
+    //         // pin: false,
+    //         // markers: true,
+    //     },
+    //     y: Math.PI,
+    //     ease: 'none'
+    // })
+
+    gsap.fromTo(flipValue, {value: 0}, {
+        scrollTrigger: {
+            trigger: '.mainBody',
+            start: () =>  document.querySelector('.mainBody').clientHeight*0  + ' top',
+            end: () =>  document.querySelector('.mainBody').clientHeight*1  + ' top',
+            // toggleActions: "play none none reverse",
+            snap: true,
+            scrub: true,
+            // pin: false,
+            // markers: true,
+        },
+        value: 1,
+        ease: 'none'
+    })
+
+    gsap.fromTo('.businessCardFront', {rotateY: '0deg'}, {
+        scrollTrigger: {
+            trigger: '.mainBody',
+            start: () =>  document.querySelector('.mainBody').clientHeight*0  + ' top',
+            end: () =>  document.querySelector('.mainBody').clientHeight*1  + ' top',
+            // toggleActions: "play none none reverse",
+            snap: true,
+            scrub: true,
+            // pin: false,
+            // markers: true,
+        },
+        rotateY: '180deg',
+        ease: 'none'
+    })
+
+    gsap.fromTo('.businessCardBack', {rotateY: '-180deg'}, {
+        scrollTrigger: {
+            trigger: '.mainBody',
+            start: () =>  document.querySelector('.mainBody').clientHeight*0  + ' top',
+            end: () =>  document.querySelector('.mainBody').clientHeight*1  + ' top',
+            // toggleActions: "play none none reverse",
+            // snap: true,
+            scrub: true,
+            // pin: false,
+            // markers: true
+        },
+        rotateY: '0deg',
+        ease: 'none'
+    })
+
+    gsap.fromTo('.businessCardBack', {opacity: 0}, {
+        scrollTrigger: {
+            trigger: '.mainBody',
+            start: () =>  document.querySelector('.mainBody').clientHeight*0.5  + ' top',
+            toggleActions: "restart none none reverse",
+            // snap: true,
+            // scrub: true,
+            // pin: false,
+            // markers: true
+        },
+        duration: 0.01,
+        opacity: 1,
+        ease: 'none'
+    })
+
+    gsap.fromTo('.businessCardFront', {opacity: 1}, {
+        scrollTrigger: {
+            trigger: '.mainBody',
+            start: () =>  document.querySelector('.mainBody').clientHeight*0.5  + ' top',
+            toggleActions: "restart none none reverse",
+            // snap: true,
+            // scrub: true,
+            // pin: false,
+            // markers: true
+        },
+        duration: 0.01,
+        opacity: 0,
+        ease: 'none'
+    })
+
+    gsap.to('.businessCardBack', {duration: 0, opacity: 0})
+    
+    // Image Loader
+
+    let images = document.images
+    let len = images.length
+    let counter = 0
+
+    const incrementCounter = () => {
+        counter++
+        if ( counter >= (len - 1) ) {
+            gsap.to('.loadingPage', {duration: 1, delay: 1, opacity: 0})
+            setTimeout(() => {
+                startupAnimations()
+            }, 1000)
+        }
+    }
+
+    for (let i = 0; i < images.length; i++) {
+        if(images[i].complete) {
+            incrementCounter()
+        }
+        else {
+            images[i].addEventListener( 'load', () => {
+                incrementCounter()
+            }, false )
+        }
+    }
+
+    tick()
+}
+
+stripCanvas()

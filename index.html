@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title & Favicon -->
+    <title>The Funded Trader Test Site</title>
+
+    <!-- Custom Plain CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+
+    <!-- GSAP & Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.js"></script>
+    <script src="https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/controls/OrbitControls.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js" integrity="sha512-VEBjfxWUOyzl0bAwh4gdLEaQyDYPvLrZql3pw1ifgb6fhEvZl9iDDehwHZ+dsMzA0Jfww8Xt7COSZuJ/slxc4Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/ScrollToPlugin.min.js"></script>
+
+    <!-- Lottie Player -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Open+Sans&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <!-- Loading Page -->
+    <div class="loadingPage">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="57" height="80" viewBox="0 0 57 80" class="loadingSVGLogo">
+            <image width="57" height="80" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAADkAAABQCAYAAACj490XAAADmklEQVR4nO2cS2xMURjH/9+905i+lIUQtBIbiYUgEhK1tBOs7alpiY3EzjPetdJWS4WNxx4RayKIiKSJxCOl06pH61Gqo+be88m9eqVmanpjzjntHOe3mzP33vP95j/n3HNP2iFoYKSjtp4E3c7riXGnvDG9TnUFjg7JqcZKmoKVNAUraQpW0hT+C8mEzIvxPjhDc+tqctsdn6qZOP8E4sTntrrZuc01IpOlHQPDsuqSKpmZv3jhDOH15LYzJhAMoTUzCB/zruMmbwDYIKsuOyZNwUqagtzZlUYFwflU7HWISdrMarGUGDTctmgFgaVPQC4hk0yln+S2c8ucqhGnfInOjynhktgN0BbZFxaMLgDLctszZcnljkD+zp1CHGL3IANCZ6c6YfANJ9n46imBrxopyGAm7A/HYpgmw5/6sqRzvXJ778NQMkyT+IpJdkGKwsF+jF/WkesfYsCb0spkQrhWtT39COMlk9v6nxHjsgl+YYqEA9HrP9aulPAOC9+dX0wHxJQEof7fK8QgEz8uqgZQV5QiciWDNAGsL6aDkY7FdTTB7kBcmPh+RapX2q4A7POkQVhJU7CSpiB1j0cFwS0Jvre60KWFoOdVO3r+em+d9pLw/XoiXCp0iEO8tuD70ovSDAO3KprSd82WZAqfNAox/b+uBWDwzcrG9L3JjivpJBk8aYooZckwxVTfgzjHlrJkrBRRCmOSyX8B0Nmc5nTcFFEKkmMysYUmwq5dTcFKmoKVNAUraQpW0hSspClYSVOwkkVB0+cDlF5IOTDEQAaMpaOtC/L+WCkGr2TXJF2SGrqHiHGGCCTIib0Pg3APlX8QnGbZNSn5Snll7okgTQZtHm5ZtDz2iYSL5ame6Z9kQPXWl++iNF2X98U5ZyzFoyrqUTY5hGkyRpixKV6adEFFilApGaYJbgvSdJzCe6RBinATR1TVonSa91B2khnfAGwcbq9b+dcDic5XNHSnVdWhVLK6sfs9gVvDNAUmTDNMUXhKxmKE8ht2NpttZiD474AN39prV+UdEKTY1N+rsgblkjN3vR0goCVIkwTtHf8eg0fZ9ZWNxQgtS6+skz0Vpck+xqfZWbntdZ/q/rVIzmx4Mxil6RD2IEoRrHQsRmhbRP/wvGZm/grQvLGmzspU32sdfWuTrNnZ/4GITuPXjPpdV4rQ/Tw5mhCnGPwFwDldKUK35KytfR/BOM4+junsVzvM0PLzOL8B8BNgVT/FItThbwAAAABJRU5ErkJggg=="/>
+        </svg>
+    </div>
+ 
+    <!-- Three.js Canvas -->
+    <canvas class="webgl"></canvas>
+
+    <!-- Portfolio Body -->
+    <main class="mainBody">
+
+        <div class="perspectiveChangeDiv">
+            <section class="businessCardFront">
+                <div class="topDiv">
+                    <div class="headerDiv">
+
+                        <div class="headerSliderBody">
+                            <div class="headerTextReverseDiv">
+                                
+                                <div class="nameLeft">
+                                    <div class="fnLeft">
+                                        PATRICK
+                                        <div class="titleTopLeftContainer">
+                                            <div class="titleTopLeft">CREATIVE</div>
+                                            <div class="titleTopLeft titleDupeTopLeft">CREATIVE</div>
+                                        </div>
+                                    </div>
+                                    <div class="lnLeft">
+                                        MUNAR
+                                        <div class="titleBotLeftContainer">
+                                            <div class="titleBotLeft">WEB DEV</div>
+                                            <div class="titleBotRight titleDupeBotLeft">WEB DEV</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="mainPhotoSlider">
+                                <img src="./images/MainPhoto.png" alt="" class="mainPhoto"/>
+                            </div>
+                            
+                            <div class="headerTextDiv">
+
+                                <div class="nameRight">
+                                    <div class="fnRight">
+                                        PATRICK
+                                        <div class="titleTopRightContainer">
+                                            <div class="titleTopRight">CREATIVE</div>
+                                            <div class="titleTopRight titleDupeTopRight">CREATIVE</div>
+                                        </div>
+                                    </div>
+                                    <div class="lnRight">
+                                        MUNAR
+                                        <div class="titleBotRightContainer">
+                                            <div class="titleBotRight">WEB DEV</div>
+                                            <div class="titleBotRight titleDupeBotRight">WEB DEV</div>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="quotationDiv">
+                        <div class="leftQuote quotes">“</div>
+                        <div class="quotationGap"></div>
+                        <div class="rightQuote quotes">”</div>
+                    </div>
+
+                    <div class="topSummaryTextDiv">
+                        I mix web & 3D together
+                    </div>
+
+                    <div class="bottomSummaryTextDiv">
+                        <t class="bottomSummaryLeft">to make</t>&nbsp;
+                        <div class="adjective">
+                            <t class="adjectiveText">immersive</t>
+                            <div class="adjectiveUnderline"></div>
+                        </div>
+                        &nbsp;<t class="bottomSummaryLeft">web experiences.</t>
+                    </div>
+
+                    <div class="skillsDiv">
+                        <div class="skill">
+                            <t class="skillText">Front-end Development</t>
+                            <div class="skillUnderline"></div>
+                        </div>
+                        <div class="skill">
+                            <t class="skillText">Interactive Animations</t>
+                            <div class="skillUnderline"></div>
+                        </div>
+                        <div class="skill">
+                            <t class="skillText">Web Deployment</t>
+                            <div class="skillUnderline"></div>
+                        </div>
+                        <div class="skill">
+                            <t class="skillText">2D + 3D</t>
+                            <div class="skillUnderline"></div>
+                        </div>
+                    </div>
+
+                    <div class="bracketDiv">
+                        <div class="leftBracket brackets">{</div>
+                        <div class="bracketGap"></div>
+                        <div class="rightBracket brackets">}</div>
+                    </div>
+                    
+                </div>
+
+                <div class="bottomDiv">
+                    
+                </div>
+
+                <canvas class="strip"></canvas>
+            </section>
+    
+            <section class="businessCardBack">
+                BACK
+            </section>
+        </div>
+
+    </main>
+    
+    <!-- JavaScript -->
+    <script type="module" src="./js/script.js"></script>
+</body>
+</html>
