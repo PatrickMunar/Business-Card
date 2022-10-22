@@ -145,7 +145,7 @@ a {
 .businessCardFront {
     position: absolute;
     /* background-color: #3a3a3a; */
-    background-color: #f5f5f5;
+    background-color: #7676e410;
     width: 110rem;
     height: calc(2/3.5 * 110rem);
     display: flex;
@@ -161,7 +161,7 @@ a {
 .businessCardBack {
     position: absolute;
     /* background-color: #3a3a3a; */
-    background-color: #f5f5f5;
+    background-color: #f3f3f3;
     width: 110rem;
     height: calc(2/3.5 * 110rem);
     display: flex;
@@ -196,7 +196,7 @@ a {
     align-items: flex-start;
     padding: 2.5rem;
     /* background-color: #ffffff; */
-    background-color: #E6E6FA;
+    background-color: #7676e430;
     /* background: linear-gradient(to right, #45e2b6d0, 60%, #ac2dd6d0); */
     border-radius: 10rem;
     box-shadow: inset 0 0 10px 1px #0000003a;
@@ -286,11 +286,18 @@ a {
     align-items: flex-end;
 }
 
+.titleTopRightParallax {
+    position: absolute;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
 .titleTopRight {
     width: 50rem;
     position: absolute;
     font-size: 5rem !important;
-    color: #45e2b6 !important;
+    color: #45e2b6;
     z-index: 2;
     font-family: Offbit;
     font-weight: bold;
@@ -310,11 +317,18 @@ a {
     align-items: flex-end;
 }
 
+.titleBotRightParallax {
+    position: absolute;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
 .titleBotRight {
     width: 50rem;
     position: absolute;
     font-size: 5rem !important;
-    color: #45e2b6 !important;
+    color: #45e2b6;
     z-index: 2;
     font-family: Offbit;
     font-weight: bold;
@@ -337,7 +351,6 @@ a {
     flex-direction: column;
     text-align: right;
     margin-left: -38.5rem;
-    opacity: 0;
     color: #7676e4;
 }
 
@@ -381,11 +394,18 @@ a {
     align-items: flex-end;
 }
 
+.titleTopLeftParallax {
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
 .titleTopLeft {
     width: 50rem;
     position: absolute;
     font-size: 5rem !important;
-    color: #45e2b6 !important;
+    color: #45e2b6;
     z-index: 2;
     font-family: Offbit;
     font-weight: bold;
@@ -405,11 +425,18 @@ a {
     align-items: flex-end;
 }
 
+.titleBotLeftParallax {
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
 .titleBotLeft {
     width: 50rem;
     position: absolute;
     font-size: 5rem !important;
-    color: #45e2b6 !important;
+    color: #45e2b6;
     z-index: 2;
     font-family: Offbit;
     font-weight: bold;
@@ -483,8 +510,35 @@ a {
 }
 
 .adjective {
+    width: 16.5rem;
+    height: 5rem;
     color: #7676e4;
     font-weight: bold;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.adjectiveContainer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 4rem;
+    overflow: hidden;
+}
+
+.adjectiveText {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 4rem;
 }
 
 /* Skills Div */
@@ -555,6 +609,46 @@ a {
 
 .bracketGap {
     width: 35rem;
+    height: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-0.2rem);
+}
+
+.bracketSkillsContainer {
+    width: 40rem;
+    height: 100%;
+    font-size: 4rem !important;
+    font-family: Porcine;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+}
+
+.bracketSkills {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    color: #7676e8;
+    /* color: #45e2b6 !important; */
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bracketSkillsDupe {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    /* color: #E6E6FA; */
+    color: #45e2b8;
+    transform: translateX(-0.4rem) translateY(0.4rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Bottom Div */

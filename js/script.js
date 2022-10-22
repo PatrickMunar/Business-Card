@@ -90,10 +90,6 @@ const interactiveJS = () => {
 
     // Animations
 
-    const startupAnimations = () => {
-
-    }
-
     // Events
     // --------------------------------------
 
@@ -266,7 +262,7 @@ const interactiveJS = () => {
         if ( counter >= (len - 1) ) {
             gsap.to('.loadingPage', {duration: 1, delay: 1, opacity: 0})
             setTimeout(() => {
-                startupAnimations()
+
             }, 1000)
         }
     }
@@ -287,23 +283,30 @@ const interactiveJS = () => {
 
 interactiveJS()
 
-const stripCanvas = () => {
+const frontCanvas = () => {
+
+    const mainColors = [
+        [new THREE.Color(0x7676e4), new THREE.Color(0x45e2b6), '#7676e4', '#45e2b6', '#7676e410', '#7676e440'],
+        [new THREE.Color(0x101820), new THREE.Color(0xffffff), '#101820', '#ffffff', '#10182010', '#10182040'],
+        [new THREE.Color(0x00539C), new THREE.Color(0xFC766A), '#00539C', '#FC766A', '#00539C10', '#00539C40'], 
+        [new THREE.Color(0xF93822), new THREE.Color(0xFDD20E), '#F93822', '#FDD20E', '#F9382210', '#F9382240'], 
+        [new THREE.Color(0x6E6E6D), new THREE.Color(0xFAD0C9), '#6E6E6D', '#FAD0C9', '#6E6E6D10', '#6E6E6D40'], 
+    ]
 
     // Canvas
         // Change '.webgl' with a canvas querySelector
-    const canvas = document.querySelector('.strip')
+    const canvas = document.querySelector('.frontCanvas')
 
     // Scene
     const scene = new THREE.Scene()
 
     // Lighting
-    // const ambientLight = new THREE.AmbientLight(0xf3f3f3, 1)
-    // scene.add(ambientLight)
+    const ambientLight = new THREE.AmbientLight(0xf3f3f3, 0.5)
+    scene.add(ambientLight)
 
-    // const directionalLight = new THREE.DirectionalLight(0xf3f3f3, 0.5)
-    // directionalLight.position.set(0, 10, 10)
-
-    // scene.add(directionalLight)
+    const directionalLight = new THREE.PointLight(0xf3f3f3, 1)
+    directionalLight.position.set(0, 10, 10)
+    scene.add(directionalLight)
 
     // Sizes
     const sizes = {
@@ -354,7 +357,9 @@ const stripCanvas = () => {
     // ----------------------------------------------------------------
 
     const boxGeometry = new THREE.BoxGeometry(0.75,0.75,0.75)
-    const boxMaterial = new THREE.MeshNormalMaterial({
+    const boxMaterial = new THREE.MeshStandardMaterial({
+        color: mainColors[0][0],
+        roughness: 1
     })
     const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial)
     scene.add(boxMesh)
@@ -369,7 +374,9 @@ const stripCanvas = () => {
     scene.add(boxGroup)
 
     const tetraGeometry = new THREE.TetrahedronGeometry(0.7, 0)
-    const tetraMaterial = new THREE.MeshNormalMaterial({
+    const tetraMaterial = new THREE.MeshStandardMaterial({
+        color: mainColors[0][0],
+        roughness: 1
     })
     const tetraMesh = new THREE.Mesh(tetraGeometry, tetraMaterial)
     scene.add(tetraMesh)
@@ -384,7 +391,9 @@ const stripCanvas = () => {
     scene.add(tetraGroup)
 
     const sphereGeometry = new THREE.SphereGeometry(0.5, 32, 16)
-    const sphereMaterial = new THREE.MeshNormalMaterial({
+    const sphereMaterial = new THREE.MeshStandardMaterial({
+        color: mainColors[0][1],
+        roughness: 1
     })
     const sphereMesh = new THREE.Mesh(sphereGeometry, sphereMaterial)
     scene.add(sphereMesh)
@@ -426,11 +435,13 @@ const stripCanvas = () => {
         groupDiameter: 3
     }
 
-    const mainColors = [new THREE.Color(0x45e2b6), new THREE.Color(0x3b37d0), new THREE.Color(0xac2dd6)]
     // Initializations
     const particleGroup = []
     const originalPositions = []
     const allParticles = new THREE.Group
+
+    let rowCounter = 0
+    let colCounter = 0
 
     // Make Particles
     for (let i = 0; i < parameters.count; i++) {
@@ -442,7 +453,7 @@ const stripCanvas = () => {
         particleG.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3))
 
         const particleM = new THREE.PointsMaterial({
-            color: mainColors[i%3],
+            color: mainColors[0][i%mainColors[0].length],
             size: parameters.size,
             depthWrite: true,
             sizeAttenuation: true,
@@ -456,6 +467,20 @@ const stripCanvas = () => {
         const x = (Math.random() - 0.5) * 2 - 5.5
         const y = (Math.random() - 0.5) * 9
         const z = 0
+
+        // Pattern Position
+        // const x = -7 + rowCounter * (0.1 + rowCounter**1.5 * 0.01)
+        // const y = -4 + colCounter * 0.5
+        // const z = 0
+
+        // if (rowCounter < 33) {
+        //     rowCounter++
+        // }
+        // else {
+        //     rowCounter = 0
+        //     colCounter++
+        // }
+        
 
         // Save Original Positions
         originalPositions[i] = [x,y]
@@ -493,27 +518,12 @@ const stripCanvas = () => {
 
     const startupAnimations = () => {
         headerAnimations()
-    }
-    
-    // Skills Events
-    const skills = document.querySelectorAll('.skill')
-    const skillUnderlines = document.querySelectorAll('.skillUnderline')
-    const skillTexts = document.querySelectorAll('.skillText')
-    let prevSkillIndex = 0
-
-    for (let i = 0; i < skills.length; i++) {
-        gsap.to(skillUnderlines[i], {duration: 0, width: 50})
-        skills[i].addEventListener('mouseenter', () => {
-            if (prevSkillIndex != i) {
-                gsap.to(skillUnderlines[prevSkillIndex], {duration: 0.35, width: 50, ease: 'Power1.easeOut'})
-                gsap.to(skillUnderlines[i], {duration: 0.35, width: 338, ease: 'Power1.easeOut'})
-                gsap.to('.bracketDiv', {duration: 0.35, y: 145 + i * 43, ease: 'Power1.easeOut'})
-                prevSkillIndex = i
-            }
-        })
+        // testAnimations()
     }
 
     // Header Animations
+    let isStartupDone = false
+
     const headerAnimations = () => {
         gsap.to('.headerDiv', {duration: 0.75, delay: 3, width: 600, ease: 'Power1.easeOut'})
 
@@ -531,14 +541,134 @@ const stripCanvas = () => {
         gsap.to('.bracketDiv', {duration: 2.6, rotateZ: -360, ease: 'Power1.easeOut'})
         gsap.to('.bracketDiv', {duration: 0.75, delay: 2.6, y: 145, ease: 'Power1.easeOut'})
         gsap.to(skillUnderlines[0], {duration: 0.35, delay: 3, width: 338, ease: 'Power1.easeOut'})
+
+        gsap.to(bracketSkillsContainers[0], {duration: 0.2, delay: 5, x: 0, opacity: 1})
         
         for (let i = 0; i < skillTexts.length; i++) {
             gsap.to(skillTexts[i], {duration: 0.6, delay: 5 + i * 0.5, x: 0, ease: 'Power1.easeOut'})
         }
+
+        setTimeout(() => {
+            isStartupDone = true
+            adjectiveChange(adjectiveIndex)
+        }, 8000)
+    }
+
+    const testAnimations = () => {
+        gsap.to('.headerDiv', {duration: 0, delay: 0, width: 600, ease: 'Power1.easeOut'})
+
+        gsap.to('.titleTopRightContainer', {duration: 0, delay: 0, x: 40, ease: 'Power1.easeOut'})
+        gsap.to('.titleBotRightContainer', {duration: 0, delay: 0, x: -40, ease: 'Power1.easeOut'})
+
+        gsap.to('.quotationDiv', {duration: 0, rotateZ: 360, ease: 'Power1.easeOut'})
+        gsap.to('.quotationDiv', {duration: 0, delay: 0, y: -235, ease: 'Power1.easeOut'})
+
+        gsap.to('.quotationGap', {duration: 0, delay: 0, width: 400, ease: 'Power1.easeOut'})
+
+        gsap.to('.topSummaryTextDiv', {duration: 0, delay: 0, opacity: 1, ease: 'Power1.easeOut'})
+        gsap.to('.bottomSummaryTextDiv', {duration: 0, delay: 0, opacity: 1, ease: 'Power1.easeOut'})
+
+        gsap.to('.bracketDiv', {duration: 0, rotateZ: -360, ease: 'Power1.easeOut'})
+        gsap.to('.bracketDiv', {duration: 0, delay: 0, y: 145, ease: 'Power1.easeOut'})
+        gsap.to(skillUnderlines[0], {duration: 0, delay: 0, width: 338, ease: 'Power1.easeOut'})
+        
+        for (let i = 0; i < skillTexts.length; i++) {
+            gsap.to(skillTexts[i], {duration: 0, delay: 0 + i * 0, x: 0, ease: 'Power1.easeOut'})
+        }
+
+        setTimeout(() => {
+            isStartupDone = true
+            adjectiveChange(adjectiveIndex)
+        }, 1000)
+    }
+    
+    // Skills Events
+    const skills = document.querySelectorAll('.skill')
+    const skillUnderlines = document.querySelectorAll('.skillUnderline')
+    const skillTexts = document.querySelectorAll('.skillText')
+    let prevSkillIndex = 0
+    
+    const bracketSkillsContainers = document.querySelectorAll('.bracketSkillsContainer')
+
+    for (let i = 0; i < bracketSkillsContainers.length; i++) {
+        gsap.to(bracketSkillsContainers[i], {duration: 0, x: 50, opacity: 0})
+    }
+
+    for (let i = 0; i < skills.length; i++) {
+        gsap.to(skillUnderlines[i], {duration: 0, width: 50})
+        skills[i].addEventListener('mouseenter', () => {
+            if (isStartupDone == true) {
+                if (prevSkillIndex != i) {
+                    gsap.to(bracketSkillsContainers[prevSkillIndex], {duration: 0.2, x: -50, opacity: 0})
+                    gsap.to(bracketSkillsContainers[prevSkillIndex], {duration: 0, delay: 0.2, x: 50, opacity: 0})
+                    gsap.to(bracketSkillsContainers[i], {duration: 0.2, x: 0, opacity: 1})
+
+                    gsap.to(skillUnderlines[prevSkillIndex], {duration: 0.35, width: 50, ease: 'Power1.easeOut'})
+                    gsap.to(skillUnderlines[i], {duration: 0.35, width: 338, ease: 'Power1.easeOut'})
+                    gsap.to('.bracketDiv', {duration: 0.35, y: 145 + i * 43, ease: 'Power1.easeOut'})
+                    prevSkillIndex = i
+                }
+            }
+        })
+    }
+
+    // Adjective Events
+    const adjectiveTexts = document.querySelectorAll('.adjectiveText')
+    let adjectiveIndex = 0
+    let adjectiveChangeDuration = 0.5
+    let adjectiveStayDuration = 5
+    let adjectiveChangeEase = 'back'
+
+    for (let i = 1; i < adjectiveTexts.length; i++) {
+        gsap.to(adjectiveTexts[i], {duration: 0, y: 40, x: -10, opacity: 0})
+    }
+
+    const adjectiveChange = (i) => {
+        gsap.to(adjectiveTexts[i], {duration: adjectiveChangeDuration, y: -40, x: 10, opacity: 0, ease: adjectiveChangeEase})
+        gsap.to(adjectiveTexts[i], {duration: 0, delay: adjectiveChangeDuration + 0.05, y: 40, x: -10, opacity: 0})
+
+        if (adjectiveIndex < adjectiveTexts.length - 1) {
+            gsap.to(adjectiveTexts[i + 1], {duration: adjectiveChangeDuration, y: 0, x: 0, opacity: 1, ease: adjectiveChangeEase})
+            adjectiveIndex++
+        }
+        else {
+            gsap.to(adjectiveTexts[0], {duration: adjectiveChangeDuration, y: 0, x: 0, opacity: 1, ease: adjectiveChangeEase})
+            adjectiveIndex = 0
+        }
+
+        setTimeout(() => {
+            adjectiveChange(adjectiveIndex)
+        }, adjectiveChangeDuration * 1000 + adjectiveStayDuration * 1000)
     }
 
     // Events
     // --------------------------------------
+
+    // Color Change
+    let colorIndex = 1
+
+    const colorChange = (x) => {
+        gsap.to('.mainColor', {duration: 0, color: mainColors[x][2]})
+        gsap.to('.mainBGColor', {duration: 0, backgroundColor: mainColors[x][2]})
+        gsap.to('.subColor', {duration: 0, color: mainColors[x][3]})
+        gsap.to('.cardBGColor', {duration: 0, backgroundColor: mainColors[x][4]})
+        gsap.to('.sliderBGColor', {duration: 0, backgroundColor: mainColors[x][5]})
+
+        for (let i = 0; i < particleGroup.length; i++) {
+            gsap.to(particleGroup[i].material, {duration: 0, color: mainColors[x][i%2]})
+        }
+
+        boxMesh.material.color = mainColors[x][0]
+        tetraMesh.material.color = mainColors[x][0]
+        sphereMesh.material.color = mainColors[x][1]
+
+        if (colorIndex < mainColors.length - 1) {
+            colorIndex++
+        }
+        else {
+            colorIndex = 0
+        }
+    }
 
     // Header Slider Events
     let isNightMode = false
@@ -548,12 +678,12 @@ const stripCanvas = () => {
             if (isNightMode == false) {
                 isNightMode = true
                 gsap.to('.headerSliderBody', {duration: 0.4, x: 400})
-                gsap.to('.headerTextDiv', {duration: 0, opacity: 0})
-                gsap.to('.headerTextReverseDiv', {duration: 0, opacity: 1})
+                // gsap.to('.headerTextDiv', {duration: 0, opacity: 0})
+                // gsap.to('.headerTextReverseDiv', {duration: 0, opacity: 1})
     
                 // Front
-                gsap.to('.businessCardFront', {duration: 0, backgroundColor: '#192734', color: '#ffffff'})
-                gsap.to('.headerDiv', {duration: 0, backgroundColor: '#22303c'})
+                // gsap.to('.businessCardFront', {duration: 0, backgroundColor: '#192734', color: '#ffffff'})
+                // gsap.to('.headerDiv', {duration: 0, backgroundColor: '#22303c'})
 
                 gsap.to('.titleTopLeftContainer', {duration: 0.75, delay: 0.1, x: -40, ease: 'Power1.easeOut'})
                 gsap.to('.titleBotLeftContainer', {duration: 0.75, delay: 0.1, x: 40, ease: 'Power1.easeOut'})
@@ -562,17 +692,18 @@ const stripCanvas = () => {
                 gsap.to('.titleBotRightContainer', {duration: 0.75, delay: 0.1, x: 0, ease: 'Power1.easeOut'})
     
                 // Back
-                gsap.to('.businessCardBack', {duration: 0, backgroundColor: '#192734', color: '#ffffff'})
+                // gsap.to('.businessCardBack', {duration: 0, backgroundColor: '#192734', color: '#ffffff'})
+                colorChange(colorIndex)
             }
             else {
                 isNightMode = false
                 gsap.to('.headerSliderBody', {duration: 0.4, x: 0})
-                gsap.to('.headerTextDiv', {duration: 0, opacity: 1})
-                gsap.to('.headerTextReverseDiv', {duration: 0, opacity: 0})
+                // gsap.to('.headerTextDiv', {duration: 0, opacity: 1})
+                // gsap.to('.headerTextReverseDiv', {duration: 0, opacity: 0})
     
                 // Front
-                gsap.to('.businessCardFront', {duration: 0, backgroundColor: '#f5f5f5', color: '#000000'})
-                gsap.to('.headerDiv', {duration: 0, backgroundColor: '#E6E6FA'})
+                // gsap.to('.businessCardFront', {duration: 0, backgroundColor: '#f5f5f5', color: '#000000'})
+                // gsap.to('.headerDiv', {duration: 0, backgroundColor: '#E6E6FA'})
 
                 gsap.to('.titleTopLeftContainer', {duration: 0.75, delay: 0.1, x: 0, ease: 'Power1.easeOut'})
                 gsap.to('.titleBotLeftContainer', {duration: 0.75, delay: 0.1, x: 0, ease: 'Power1.easeOut'})
@@ -581,7 +712,8 @@ const stripCanvas = () => {
                 gsap.to('.titleBotRightContainer', {duration: 0.75, delay: 0.1, x: -40, ease: 'Power1.easeOut'})
     
                 // Back
-                gsap.to('.businessCardBack', {duration: 0, backgroundColor: '#f5f5f5', color: '#000000'})
+                // gsap.to('.businessCardBack', {duration: 0, backgroundColor: '#f5f5f5', color: '#000000'})
+                colorChange(colorIndex)
             }
         }
     })
@@ -623,6 +755,13 @@ const stripCanvas = () => {
         mouse.x = e.clientX/window.innerWidth - 0.5
         mouse.y = -(e.clientY/window.innerHeight - 0.5)
 
+        // Titel Parallax
+        gsap.to('.titleTopRightParallax', {duration: 1, x: -mouse.x * 10})
+        gsap.to('.titleBotRightParallax', {duration: 1, x: mouse.x * 10})
+
+        gsap.to('.titleTopLeftParallax', {duration: 1, x: -mouse.x * 10})
+        gsap.to('.titleBotLeftParallax', {duration: 1, x: mouse.x * 10})
+
         // 3D --------------
 
         // Update Pointer Coordinates
@@ -651,10 +790,7 @@ const stripCanvas = () => {
                 // Size Change
                 gsap.to(particleGroup[i].material, {duration: 0.1, size: 0.15})
                 gsap.to(particleGroup[i].material, {duration: 1, delay: 0.1, size: parameters.size})
-
-                if (isNightMode == false) {
-                    gsap.to(particleGroup[i].position, {duration: 1, delay: 0.1, x: originalPositions[i][0], y: originalPositions[i][1]})
-                }
+                gsap.to(particleGroup[i].position, {duration: 1, delay: 0.1, x: originalPositions[i][0], y: originalPositions[i][1]})
             }
         } 
 
@@ -828,4 +964,4 @@ const stripCanvas = () => {
     tick()
 }
 
-stripCanvas()
+frontCanvas()
