@@ -1,9 +1,37 @@
 gsap.registerPlugin(ScrollTrigger)
 
-const interactiveJS = () => {
-    // Clear Scroll Memory
-    window.history.scrollRestoration = 'manual'
+// Clear Scroll Memory
+window.history.scrollRestoration = 'manual'
 
+const mainColors = [
+    [new THREE.Color(0x7676e4), new THREE.Color(0x45e2b6), '#7676e4', '#45e2b6', '#7676e410', '#7676e440'],
+    [new THREE.Color(0x101820), new THREE.Color(0xffffff), '#101820', '#ffffff', '#10182010', '#10182040'],
+    [new THREE.Color(0x00539C), new THREE.Color(0xFC766A), '#00539C', '#FC766A', '#00539C10', '#00539C40'], 
+    [new THREE.Color(0xF93822), new THREE.Color(0xFDD20E), '#F93822', '#FDD20E', '#F9382210', '#F9382240'], 
+    [new THREE.Color(0x6E6E6D), new THREE.Color(0xFAD0C9), '#6E6E6D', '#FAD0C9', '#6E6E6D10', '#6E6E6D40'], 
+    [new THREE.Color(0x1D90F3), new THREE.Color(0xFFFE03), '#1D90F3', '#FFFE03', '#1D90F310', '#1D90F340'], 
+]
+let colorIndex = 1
+
+const particleGroup = []
+let boxMesh, tetraMesh, sphereMesh
+
+const linksArray = []
+
+for (let i = 0; i < mainColors.length; i++) {
+    const x = new THREE.Group
+    const y = new THREE.Group
+    linksArray[i] = []
+    linksArray[i][0] = x
+    linksArray[i][1] = y
+}
+
+// Flip Indicator
+let flipValue = {
+    value: 0
+}
+
+const interactiveJS = () => {
     // Canvas
         // Change '.webgl' with a canvas querySelector
     const canvas = document.querySelector('.webgl')
@@ -44,22 +72,11 @@ const interactiveJS = () => {
         renderer.setSize(sizes.width, sizes.height)
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
-        let prevIsPortrait = isPortrait
-        if (window.innerWidth < window.innerHeight) {
-            isPortrait = true
-        }
-        else {
-            isPortrait = false
-        }
-
-        if (prevIsPortrait != isPortrait) {
-            location.reload()
-        }
+        window.scrollTo(0, 0)
     })
 
     // Loaders
     const textureLoader = new THREE.TextureLoader()
-    const mainPhotoTexture = textureLoader.load('./images/MainPhoto.png')
 
     // GLTF Loader
     const gltfLoader = new THREE.GLTFLoader()
@@ -92,6 +109,20 @@ const interactiveJS = () => {
 
     // Events
     // --------------------------------------
+
+    // Links
+    const links = document.querySelectorAll('a')
+    const linkDivs = document.querySelectorAll('.linkDiv')
+
+    for (let i = 0; i < links.length; i++) {
+        links[i].addEventListener('mouseenter', () => {
+            gsap.to(linkDivs[i], {duration: 0.25, x: 5, y: -5, ease: 'Power1.easeOut'})
+        })
+
+        links[i].addEventListener('mouseleave', () => {
+            gsap.to(linkDivs[i], {duration: 0.25, x: 0, y: 0, ease: 'Power1.easeOut'})
+        })
+    }
 
     // Raycast
     const raycaster = new THREE.Raycaster()
@@ -188,68 +219,6 @@ const interactiveJS = () => {
     //     y: Math.PI,
     //     ease: 'none'
     // })
-
-    gsap.fromTo('.businessCardFront', {rotateY: '0deg'}, {
-        scrollTrigger: {
-            trigger: '.mainBody',
-            start: () =>  document.querySelector('.mainBody').clientHeight*0  + ' top',
-            end: () =>  document.querySelector('.mainBody').clientHeight*1  + ' top',
-            // toggleActions: "play none none reverse",
-            // snap: true,
-            scrub: true,
-            // pin: false,
-            // markers: true,
-        },
-        rotateY: '180deg',
-        ease: 'none'
-    })
-
-    gsap.fromTo('.businessCardBack', {rotateY: '-180deg'}, {
-        scrollTrigger: {
-            trigger: '.mainBody',
-            start: () =>  document.querySelector('.mainBody').clientHeight*0  + ' top',
-            end: () =>  document.querySelector('.mainBody').clientHeight*1  + ' top',
-            // toggleActions: "play none none reverse",
-            // snap: true,
-            scrub: true,
-            // pin: false,
-            // markers: true
-        },
-        rotateY: '0deg',
-        ease: 'none'
-    })
-
-    gsap.fromTo('.businessCardBack', {opacity: 0}, {
-        scrollTrigger: {
-            trigger: '.mainBody',
-            start: () =>  document.querySelector('.mainBody').clientHeight*0.5  + ' top',
-            toggleActions: "restart none none reverse",
-            // snap: true,
-            // scrub: true,
-            // pin: false,
-            // markers: true
-        },
-        duration: 0.01,
-        opacity: 1,
-        ease: 'none'
-    })
-
-    gsap.fromTo('.businessCardFront', {opacity: 1}, {
-        scrollTrigger: {
-            trigger: '.mainBody',
-            start: () =>  document.querySelector('.mainBody').clientHeight*0.5  + ' top',
-            toggleActions: "restart none none reverse",
-            // snap: true,
-            // scrub: true,
-            // pin: false,
-            // markers: true
-        },
-        duration: 0.01,
-        opacity: 0,
-        ease: 'none'
-    })
-
-    gsap.to('.businessCardBack', {duration: 0, opacity: 0})
     
     // Image Loader
 
@@ -284,14 +253,6 @@ const interactiveJS = () => {
 interactiveJS()
 
 const frontCanvas = () => {
-
-    const mainColors = [
-        [new THREE.Color(0x7676e4), new THREE.Color(0x45e2b6), '#7676e4', '#45e2b6', '#7676e410', '#7676e440'],
-        [new THREE.Color(0x101820), new THREE.Color(0xffffff), '#101820', '#ffffff', '#10182010', '#10182040'],
-        [new THREE.Color(0x00539C), new THREE.Color(0xFC766A), '#00539C', '#FC766A', '#00539C10', '#00539C40'], 
-        [new THREE.Color(0xF93822), new THREE.Color(0xFDD20E), '#F93822', '#FDD20E', '#F9382210', '#F9382240'], 
-        [new THREE.Color(0x6E6E6D), new THREE.Color(0xFAD0C9), '#6E6E6D', '#FAD0C9', '#6E6E6D10', '#6E6E6D40'], 
-    ]
 
     // Canvas
         // Change '.webgl' with a canvas querySelector
@@ -332,23 +293,10 @@ const frontCanvas = () => {
         // Update renderer
         renderer.setSize(sizes.width, sizes.height)
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-
-        let prevIsPortrait = isPortrait
-        if (window.innerWidth < window.innerHeight) {
-            isPortrait = true
-        }
-        else {
-            isPortrait = false
-        }
-
-        if (prevIsPortrait != isPortrait) {
-            location.reload()
-        }
     })
 
     // Loaders
     const textureLoader = new THREE.TextureLoader()
-    const mainPhotoTexture = textureLoader.load('./images/MainPhoto.png')
 
     // GLTF Loader
     const gltfLoader = new THREE.GLTFLoader()
@@ -361,7 +309,7 @@ const frontCanvas = () => {
         color: mainColors[0][0],
         roughness: 1
     })
-    const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial)
+    boxMesh = new THREE.Mesh(boxGeometry, boxMaterial)
     scene.add(boxMesh)
 
     const boxBobbleGroup = new THREE.Group
@@ -378,7 +326,7 @@ const frontCanvas = () => {
         color: mainColors[0][0],
         roughness: 1
     })
-    const tetraMesh = new THREE.Mesh(tetraGeometry, tetraMaterial)
+    tetraMesh = new THREE.Mesh(tetraGeometry, tetraMaterial)
     scene.add(tetraMesh)
 
     const tetraBobbleGroup = new THREE.Group
@@ -395,7 +343,7 @@ const frontCanvas = () => {
         color: mainColors[0][1],
         roughness: 1
     })
-    const sphereMesh = new THREE.Mesh(sphereGeometry, sphereMaterial)
+    sphereMesh = new THREE.Mesh(sphereGeometry, sphereMaterial)
     scene.add(sphereMesh)
 
     const sphereBobbleGroup = new THREE.Group
@@ -436,7 +384,6 @@ const frontCanvas = () => {
     }
 
     // Initializations
-    const particleGroup = []
     const originalPositions = []
     const allParticles = new THREE.Group
 
@@ -453,12 +400,11 @@ const frontCanvas = () => {
         particleG.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3))
 
         const particleM = new THREE.PointsMaterial({
-            color: mainColors[0][i%mainColors[0].length],
+            color: mainColors[0][i%2],
             size: parameters.size,
-            depthWrite: true,
+            depthWrite: false,
             sizeAttenuation: true,
-            blending: THREE.AdditiveBlending,
-            transparent: true
+            transparent: true,
         })
         
         const particles = new THREE.Points(particleG, particleM)
@@ -644,80 +590,6 @@ const frontCanvas = () => {
     // Events
     // --------------------------------------
 
-    // Color Change
-    let colorIndex = 1
-
-    const colorChange = (x) => {
-        gsap.to('.mainColor', {duration: 0, color: mainColors[x][2]})
-        gsap.to('.mainBGColor', {duration: 0, backgroundColor: mainColors[x][2]})
-        gsap.to('.subColor', {duration: 0, color: mainColors[x][3]})
-        gsap.to('.cardBGColor', {duration: 0, backgroundColor: mainColors[x][4]})
-        gsap.to('.sliderBGColor', {duration: 0, backgroundColor: mainColors[x][5]})
-
-        for (let i = 0; i < particleGroup.length; i++) {
-            gsap.to(particleGroup[i].material, {duration: 0, color: mainColors[x][i%2]})
-        }
-
-        boxMesh.material.color = mainColors[x][0]
-        tetraMesh.material.color = mainColors[x][0]
-        sphereMesh.material.color = mainColors[x][1]
-
-        if (colorIndex < mainColors.length - 1) {
-            colorIndex++
-        }
-        else {
-            colorIndex = 0
-        }
-    }
-
-    // Header Slider Events
-    let isNightMode = false
-
-    document.querySelector('.mainPhotoSlider').addEventListener('click', () => {
-        if (flipValue.value < 0.5) {
-            if (isNightMode == false) {
-                isNightMode = true
-                gsap.to('.headerSliderBody', {duration: 0.4, x: 400})
-                // gsap.to('.headerTextDiv', {duration: 0, opacity: 0})
-                // gsap.to('.headerTextReverseDiv', {duration: 0, opacity: 1})
-    
-                // Front
-                // gsap.to('.businessCardFront', {duration: 0, backgroundColor: '#192734', color: '#ffffff'})
-                // gsap.to('.headerDiv', {duration: 0, backgroundColor: '#22303c'})
-
-                gsap.to('.titleTopLeftContainer', {duration: 0.75, delay: 0.1, x: -40, ease: 'Power1.easeOut'})
-                gsap.to('.titleBotLeftContainer', {duration: 0.75, delay: 0.1, x: 40, ease: 'Power1.easeOut'})
-
-                gsap.to('.titleTopRightContainer', {duration: 0.75, delay: 0.1, x: 0, ease: 'Power1.easeOut'})
-                gsap.to('.titleBotRightContainer', {duration: 0.75, delay: 0.1, x: 0, ease: 'Power1.easeOut'})
-    
-                // Back
-                // gsap.to('.businessCardBack', {duration: 0, backgroundColor: '#192734', color: '#ffffff'})
-                colorChange(colorIndex)
-            }
-            else {
-                isNightMode = false
-                gsap.to('.headerSliderBody', {duration: 0.4, x: 0})
-                // gsap.to('.headerTextDiv', {duration: 0, opacity: 1})
-                // gsap.to('.headerTextReverseDiv', {duration: 0, opacity: 0})
-    
-                // Front
-                // gsap.to('.businessCardFront', {duration: 0, backgroundColor: '#f5f5f5', color: '#000000'})
-                // gsap.to('.headerDiv', {duration: 0, backgroundColor: '#E6E6FA'})
-
-                gsap.to('.titleTopLeftContainer', {duration: 0.75, delay: 0.1, x: 0, ease: 'Power1.easeOut'})
-                gsap.to('.titleBotLeftContainer', {duration: 0.75, delay: 0.1, x: 0, ease: 'Power1.easeOut'})
-
-                gsap.to('.titleTopRightContainer', {duration: 0.75, delay: 0.1, x: 40, ease: 'Power1.easeOut'})
-                gsap.to('.titleBotRightContainer', {duration: 0.75, delay: 0.1, x: -40, ease: 'Power1.easeOut'})
-    
-                // Back
-                // gsap.to('.businessCardBack', {duration: 0, backgroundColor: '#f5f5f5', color: '#000000'})
-                colorChange(colorIndex)
-            }
-        }
-    })
-
     // Raycast
     const raycaster = new THREE.Raycaster()
     const pointer = new THREE.Vector3()
@@ -762,6 +634,9 @@ const frontCanvas = () => {
         gsap.to('.titleTopLeftParallax', {duration: 1, x: -mouse.x * 10})
         gsap.to('.titleBotLeftParallax', {duration: 1, x: mouse.x * 10})
 
+        // Light Movement
+        gsap.to(directionalLight.position, {duration: 1, x: mouse.x * 10, y: mouse.y * 10})
+
         // 3D --------------
 
         // Update Pointer Coordinates
@@ -796,11 +671,6 @@ const frontCanvas = () => {
 
     })
 
-    // Flip Indicator
-    let flipValue = {
-        value: 0
-    }
-
     // --------------------------------------
 
     // Animate
@@ -813,15 +683,6 @@ const frontCanvas = () => {
         
         // Camera Movement
         // gsap.to(camera.rotation, {duration: 1, x: mouse.y * 0.01, y: - mouse.x * 0.01})
-
-        if (flipValue.value < 0.5) {
-            gsap.to('.businessCardFront', {duration: 0, pointerEvents: 'auto'})
-            gsap.to('.businessCardBack', {duration: 0, pointerEvents: 'none'})
-        }
-        else {
-            gsap.to('.businessCardFront', {duration: 0, pointerEvents: 'none'})
-            gsap.to('.businessCardBack', {duration: 0, pointerEvents: 'auto'})
-        }
 
         // Object Movement
         boxMesh.rotation.set(elapsedTime * boxRotations.x, elapsedTime * boxRotations.y, elapsedTime * boxRotations.z)
@@ -965,3 +826,393 @@ const frontCanvas = () => {
 }
 
 frontCanvas()
+
+const backCanvas = () => {
+
+    // Canvas
+        // Change '.webgl' with a canvas querySelector
+    const canvas = document.querySelector('.backCanvas')
+
+    // Scene
+    const scene = new THREE.Scene()
+
+    // Lighting
+    const ambientLight = new THREE.AmbientLight(0xf3f3f3, 0.5)
+    scene.add(ambientLight)
+
+    const directionalLight = new THREE.PointLight(0xf3f3f3, 1)
+    directionalLight.position.set(0, 10, 10)
+    scene.add(directionalLight)
+
+    // Sizes
+    const sizes = {
+        width: window.innerWidth,
+        height: window.innerHeight
+    }
+
+    let isPortrait = false
+
+    if (window.innerWidth < window.innerHeight) {
+        isPortrait = true
+    }
+
+    window.addEventListener('resize', () => {    
+        // Update sizes
+        sizes.width = window.innerWidth
+        sizes.height = window.innerHeight
+
+        // Update camera
+        camera.aspect = sizes.width / sizes.height
+        camera.updateProjectionMatrix()
+
+        // Update renderer
+        renderer.setSize(sizes.width, sizes.height)
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    })
+
+    // Loaders
+    const textureLoader = new THREE.TextureLoader()
+
+    // GLTF Loader
+    const gltfLoader = new THREE.GLTFLoader()
+
+    const chainSpringGroup = new THREE.Group
+    scene.add(chainSpringGroup)
+
+    chainSpringGroup.rotation.set(Math.PI/7, 0, Math.PI/7)
+    chainSpringGroup.rotation.set(Math.PI/7, 0, Math.PI/7)
+    chainSpringGroup.position.set(2, -2, 0)
+
+    const chainTiltGroup = new THREE.Group
+    chainSpringGroup.add(chainTiltGroup)
+
+    chainTiltGroup.position.y = -2.5
+    
+    let chainScale = 0.05
+
+    for (let i = 0; i < mainColors.length; i++) {
+
+        gltfLoader.load(
+            './gltf/MainLinks.glb',
+            (obj) => {
+                obj.scene.scale.set(chainScale, chainScale, chainScale)
+    
+                linksArray[i][0].add(obj.scene)
+                obj.scene.children[0].material.color = mainColors[i][0]
+            }
+        )
+
+        gltfLoader.load(
+            './gltf/SubLinks.glb',
+            (obj) => {
+                obj.scene.scale.set(chainScale, chainScale, chainScale)
+    
+                linksArray[i][1].add(obj.scene)
+                obj.scene.children[0].material.color = mainColors[i][1]
+            }
+        )
+
+        if (i == 0) {
+            chainTiltGroup.add(linksArray[i][0])
+            chainTiltGroup.add(linksArray[i][1])
+        }
+    }
+
+    let linkIndex = 0
+
+    const linkChange = () => {
+        chainTiltGroup.remove(linksArray[linkIndex][0])
+        chainTiltGroup.remove(linksArray[linkIndex][1])
+
+        if (linkIndex < mainColors.length - 1) {
+            linkIndex++
+        }
+        else {
+            linkIndex = 0
+        }
+
+        chainTiltGroup.add(linksArray[linkIndex][0])
+        chainTiltGroup.add(linksArray[linkIndex][1])
+    }
+
+    // 3D Objects
+    // ----------------------------------------------------------------
+
+    
+    // ----------------------------------------------------------------
+
+    // Base camera
+    const camera = new THREE.PerspectiveCamera(45, sizes.width / sizes.height, 0.1, 100)
+    camera.position.set(0,0,10)
+    scene.add(camera)
+
+    // Controls
+    // const controls = new THREE.OrbitControls(camera, canvas)
+    // controls.enabled = true
+
+    // Renderer
+    const renderer = new THREE.WebGLRenderer({
+        canvas: canvas,
+        antialias: true,
+        alpha: true
+    })
+    renderer.setSize(sizes.width, sizes.height)
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    renderer.shadowMap.enabled = false
+
+    // Animations
+
+    const startupAnimations = () => {
+
+    }
+
+    // Events
+    // --------------------------------------
+
+    // Header Slider Events
+    let isNightMode = false
+
+    document.querySelector('.mainPhotoSlider').addEventListener('click', () => {
+        if (flipValue.value < 0.5) {
+            if (isNightMode == false) {
+                isNightMode = true
+                gsap.to('.headerSliderBody', {duration: 0.4, x: 400})
+                // gsap.to('.headerTextDiv', {duration: 0, opacity: 0})
+                // gsap.to('.headerTextReverseDiv', {duration: 0, opacity: 1})
+    
+                // Front
+                // gsap.to('.businessCardFront', {duration: 0, backgroundColor: '#192734', color: '#ffffff'})
+                // gsap.to('.headerDiv', {duration: 0, backgroundColor: '#22303c'})
+
+                gsap.to('.titleTopLeftContainer', {duration: 0.75, delay: 0.1, x: -40, ease: 'Power1.easeOut'})
+                gsap.to('.titleBotLeftContainer', {duration: 0.75, delay: 0.1, x: 40, ease: 'Power1.easeOut'})
+
+                gsap.to('.titleTopRightContainer', {duration: 0.75, delay: 0.1, x: 0, ease: 'Power1.easeOut'})
+                gsap.to('.titleBotRightContainer', {duration: 0.75, delay: 0.1, x: 0, ease: 'Power1.easeOut'})
+    
+                // Back
+                // gsap.to('.businessCardBack', {duration: 0, backgroundColor: '#192734', color: '#ffffff'})
+                colorChange(colorIndex)
+                linkChange()
+            }
+            else {
+                isNightMode = false
+                gsap.to('.headerSliderBody', {duration: 0.4, x: 0})
+                // gsap.to('.headerTextDiv', {duration: 0, opacity: 1})
+                // gsap.to('.headerTextReverseDiv', {duration: 0, opacity: 0})
+    
+                // Front
+                // gsap.to('.businessCardFront', {duration: 0, backgroundColor: '#f5f5f5', color: '#000000'})
+                // gsap.to('.headerDiv', {duration: 0, backgroundColor: '#E6E6FA'})
+
+                gsap.to('.titleTopLeftContainer', {duration: 0.75, delay: 0.1, x: 0, ease: 'Power1.easeOut'})
+                gsap.to('.titleBotLeftContainer', {duration: 0.75, delay: 0.1, x: 0, ease: 'Power1.easeOut'})
+
+                gsap.to('.titleTopRightContainer', {duration: 0.75, delay: 0.1, x: 40, ease: 'Power1.easeOut'})
+                gsap.to('.titleBotRightContainer', {duration: 0.75, delay: 0.1, x: -40, ease: 'Power1.easeOut'})
+    
+                // Back
+                // gsap.to('.businessCardBack', {duration: 0, backgroundColor: '#f5f5f5', color: '#000000'})
+                colorChange(colorIndex)
+                linkChange()
+            }
+        }
+    })
+
+    // Checkbox Events
+    let isCardCBTicked = false
+
+    document.querySelector('#cardCheckbox').addEventListener('click', () => {
+        if (isCardCBTicked == false) {
+            isCardCBTicked = true
+            gsap.to('#cardTick', {duration: 0.05, opacity: 1})
+        }
+        else {
+            isCardCBTicked = false
+            gsap.to('#cardTick', {duration: 0.05, opacity: 0})
+        }
+    })
+
+    let isWorkCBTicked = false
+
+    document.querySelector('#workCheckbox').addEventListener('click', () => {
+        if (isWorkCBTicked == false) {
+            isWorkCBTicked = true
+            gsap.to('#workTick', {duration: 0.05, opacity: 1})
+        }
+        else {
+            isWorkCBTicked = false
+            gsap.to('#workTick', {duration: 0.05, opacity: 0})
+        }
+    })
+    
+    // Submit Events
+    document.querySelector('.submitButtonDiv').addEventListener('mouseenter', () => {
+        gsap.to('.submitBackground', {duration: 0.5, x: 0, ease: 'Power1.easeOut'})
+    })
+
+    document.querySelector('.submitButtonDiv').addEventListener('mouseleave', () => {
+        gsap.to('.submitBackground', {duration: 0.5, x: -300, ease: 'Power1.easeOut'})
+    })
+
+    // Raycast
+    const raycaster = new THREE.Raycaster()
+    const pointer = new THREE.Vector3()
+    const point = new THREE.Vector3()
+
+    // Mouse
+    const mouse = {
+        x: 0,
+        y: 0
+    }
+
+    const mouseFlip = {
+        x: 0,
+        y: 0
+    }
+
+    let sliderWidth = 4296
+
+    // Scroll Events
+    let lastScrollTop = 0
+    window.addEventListener('scroll', () => {
+        let st = window.pageYOffset || document.documentElement.scrollTop
+        if (st > lastScrollTop){
+            // Down
+
+        } else {
+            // Up
+
+        }
+        lastScrollTop = st <= 0 ? 0 : st;
+    }, false)
+
+    // Pointer Events
+    document.addEventListener('pointermove', (e) => {
+        mouse.x = e.clientX/window.innerWidth - 0.5
+        mouse.y = -(e.clientY/window.innerHeight - 0.5)
+
+        // All Links
+        for (let i = 0; i < mainColors.length; i++) {
+            gsap.to(linksArray[i][0].rotation, {duration: 1, y: mouse.x * Math.PI * 2})
+            gsap.to(linksArray[i][1].rotation, {duration: 1, y: mouse.x * Math.PI * 2})
+            gsap.to(linksArray[i][0].position, {duration: 1, y: mouse.y * 0.5})
+            gsap.to(linksArray[i][1].position, {duration: 1, y: mouse.y * 0.5})
+        }
+
+        // 3D --------------
+
+        // Update Pointer Coordinates
+        pointer.set(
+            (( e.clientX / window.innerWidth ) * 2 - 1) * (window.innerWidth/1100),
+            (- ( e.clientY / window.innerHeight ) * 2 + 1) * (window.innerHeight/(1100 * 2/3.5)),
+            0.575
+        )
+
+        // Match Mouse and 3D Pointer Coordinates
+        pointer.unproject(camera)
+        pointer.sub(camera.position).normalize()
+        let distance = -(camera.position.z) / pointer.z
+        point.copy(camera.position).add((pointer.multiplyScalar(distance)))
+
+    })
+
+    // --------------------------------------
+
+    // Animate
+    // --------------------------------------
+    const clock = new THREE.Clock()
+
+    const tick = () =>
+    {
+        const elapsedTime = clock.getElapsedTime()
+
+        if (flipValue.value < 0.5) {
+            gsap.to('.businessCardFront', {duration: 0, pointerEvents: 'auto'})
+            gsap.to('.businessCardBack', {duration: 0, pointerEvents: 'none'})
+        }
+        else {
+            gsap.to('.businessCardFront', {duration: 0, pointerEvents: 'none'})
+            gsap.to('.businessCardBack', {duration: 0, pointerEvents: 'auto'})
+        }
+
+        // Camera Movement
+        // gsap.to(camera.rotation, {duration: 1, x: mouse.y * 0.01, y: - mouse.x * 0.01})
+
+        // Object Movement
+
+        // Render
+        renderer.render(scene, camera)
+
+        // Call tick again on the next frame
+        window.requestAnimationFrame(tick)
+    }
+
+    gsap.fromTo(chainTiltGroup.position, {y: -4}, {
+        scrollTrigger: {
+            trigger: '.mainBody',
+            start: () =>  document.querySelector('.mainBody').clientHeight*0  + ' top',
+            end: () =>  document.querySelector('.mainBody').clientHeight*1  + ' top',
+            // toggleActions: "play none none reverse",
+            // snap: true,
+            scrub: true,
+            // pin: false,
+            // markers: true
+        },
+        y: 0,
+        ease: 'none'
+    })
+
+    gsap.fromTo(chainTiltGroup.rotation, {y: Math.PI * 3}, {
+        scrollTrigger: {
+            trigger: '.mainBody',
+            start: () =>  document.querySelector('.mainBody').clientHeight*0  + ' top',
+            end: () =>  document.querySelector('.mainBody').clientHeight*1  + ' top',
+            // toggleActions: "play none none reverse",
+            // snap: true,
+            scrub: true,
+            // pin: false,
+            // markers: true
+        },
+        y: 0,
+        ease: 'none'
+    })
+
+    tick()
+}
+
+backCanvas()
+
+// Color Change
+
+const colorChange = (x) => {
+    gsap.to('.mainColor', {duration: 0, color: mainColors[x][2]})
+    gsap.to('.mainBGColor', {duration: 0, backgroundColor: mainColors[x][2]})
+    gsap.to('.subBGColor', {duration: 0, backgroundColor: mainColors[x][3]})
+    gsap.to('.subColor', {duration: 0, color: mainColors[x][3]})
+    gsap.to('.cardBGColor', {duration: 0, backgroundColor: mainColors[x][4]})
+    gsap.to('.sliderBGColor', {duration: 0, backgroundColor: mainColors[x][5]})
+
+    gsap.to('textarea', {duration: 0, outlineColor: mainColors[x][2], borderColor: mainColors[x][2]})
+    gsap.to('input', {duration: 0, outlineColor: mainColors[x][2]})
+    document.styleSheets[0].cssRules[76].style.backgroundColor = mainColors[x][2]
+    gsap.to('.linkDivDupe', {duration: 0, borderColor: mainColors[x][2]})
+    gsap.to('.submitButtonDiv', {duration: 0, borderColor: mainColors[x][2]})
+    gsap.to('.checkbox', {duration: 0, borderColor: mainColors[x][2]})
+    gsap.to('.submitBackground', {duration: 0, backgroundColor: mainColors[x][3]})
+
+    for (let i = 0; i < particleGroup.length; i++) {
+        gsap.to(particleGroup[i].material, {duration: 0, color: mainColors[x][i%2]})
+    }
+
+    boxMesh.material.color = mainColors[x][0]
+    tetraMesh.material.color = mainColors[x][0]
+    sphereMesh.material.color = mainColors[x][1]
+
+    if (colorIndex < mainColors.length - 1) {
+        colorIndex++
+    }
+    else {
+        colorIndex = 0
+    }
+}
