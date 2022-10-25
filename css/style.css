@@ -875,6 +875,7 @@ textarea::selection, input::selection {
 }
 
 #linkDiv1 {
+    width: 18.5rem !important;
     transform: translateX(35rem) translateY(-25rem);
 }
 
