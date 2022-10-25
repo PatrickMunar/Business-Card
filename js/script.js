@@ -90,11 +90,11 @@ const interactiveJS = () => {
         renderer.setSize(sizes.width, sizes.height)
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
-        window.scrollTo(0, 0)
         aspectRatio = window.innerWidth/window.innerHeight
 
         // Mobile Scaling
         if (window.innerWidth != prevWidth) {
+            window.scrollTo(0, 0)
             if (window.innerWidth < 1100) {
                 location.reload()
     
