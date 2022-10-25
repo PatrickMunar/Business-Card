@@ -724,10 +724,11 @@ const frontCanvas = () => {
     // Image Loader
    
     window.addEventListener('load', () => {
-        gsap.to('.loadingPage', {duration: 1, delay: 1, opacity: 0})
+        gsap.to('.loadingPageCircle', {duration: 1.5, delay: 0, rotateZ: '360deg', ease: 'back'})
+        gsap.to('.loadingPage', {duration: 1, delay: 2, opacity: 0})
         setTimeout(() => {
             startupAnimations()
-        }, 2000)
+        }, 3000)
     }) 
 
     tick()
@@ -1191,6 +1192,10 @@ const backCanvas = () => {
     let flipAngle = 0
     document.querySelector('.slider').oninput = () => {
         flipAngle = document.querySelector('.slider').value
+        
+        if (flipAngle == 90) {
+            flipAngle = 90.5
+        }
         
         flipValue.value = flipAngle/180
 
