@@ -9,7 +9,8 @@ const mainColors = [
     [new THREE.Color(0x00539C), new THREE.Color(0xFC766A), '#00539C', '#FC766A', '#00539C10', '#00539C40'], 
     [new THREE.Color(0xF93822), new THREE.Color(0xFDD20E), '#F93822', '#FDD20E', '#F9382210', '#F9382240'], 
     [new THREE.Color(0x6E6E6D), new THREE.Color(0xFAD0C9), '#6E6E6D', '#FAD0C9', '#6E6E6D10', '#6E6E6D40'], 
-    [new THREE.Color(0x1D90F3), new THREE.Color(0xFFFE03), '#1D90F3', '#FFFE03', '#1D90F310', '#1D90F340'], 
+    [new THREE.Color(0x1D90F3), new THREE.Color(0xFFFE03), '#1D90F3', '#FFFE03', '#1D90F310', '#1D90F340'],
+    [new THREE.Color(0xfe7f95), new THREE.Color(0xffe5ee), '#fe7f95', '#ffe5ee', '#fe7f9510', '#fe7f9540'],
 ]
 let colorIndex = 1
 
@@ -59,6 +60,21 @@ const interactiveJS = () => {
         isPortrait = true
     }
 
+    let aspectRatio = window.innerWidth/window.innerHeight
+    let scaleRatio = 1
+
+    // Mobile Scaling
+    if (window.innerWidth < 1100) {
+        
+        if (aspectRatio > 3.5/2) {
+            gsap.to('.scaleCards', {duration: 0, scale: window.innerHeight/(1200 * 2/3.5)})
+        }
+
+        else {
+            gsap.to('.scaleCards', {duration: 0, scale: window.innerWidth/1200})
+        }
+    }
+
     window.addEventListener('resize', () => {    
         // Update sizes
         sizes.width = window.innerWidth
@@ -73,6 +89,22 @@ const interactiveJS = () => {
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
         window.scrollTo(0, 0)
+        aspectRatio = window.innerWidth/window.innerHeight
+
+        // Mobile Scaling
+        if (window.innerWidth < 1100) {
+            location.reload()
+
+            if (aspectRatio > 3.5/2) {
+                scaleRatio = window.innerHeight/(1200 * 2/3.5)
+                gsap.to('.scaleCards', {duration: 0, scale: scaleRatio})
+            }
+
+            else {
+                scaleRatio = window.innerWidth/1200
+                gsap.to('.scaleCards', {duration: 0, scaleRatio})
+            }
+        }
     })
 
     // Loaders
@@ -110,7 +142,7 @@ const interactiveJS = () => {
     // Events
     // --------------------------------------
 
-    // Links
+    // Link Events
     const links = document.querySelectorAll('a')
     const linkDivs = document.querySelectorAll('.linkDiv')
 
@@ -846,8 +878,8 @@ const backCanvas = () => {
 
     // Sizes
     const sizes = {
-        width: window.innerWidth,
-        height: window.innerHeight
+        width: 1100,
+        height: 1100
     }
 
     let isPortrait = false
@@ -858,8 +890,8 @@ const backCanvas = () => {
 
     window.addEventListener('resize', () => {    
         // Update sizes
-        sizes.width = window.innerWidth
-        sizes.height = window.innerHeight
+        sizes.width = 1100
+        sizes.height = 1100
 
         // Update camera
         camera.aspect = sizes.width / sizes.height
@@ -869,6 +901,8 @@ const backCanvas = () => {
         renderer.setSize(sizes.width, sizes.height)
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     })
+
+    gsap.to('.backCanvas', {duration: 0, y: -236})
 
     // Loaders
     const textureLoader = new THREE.TextureLoader()
@@ -887,6 +921,7 @@ const backCanvas = () => {
     chainSpringGroup.add(chainTiltGroup)
 
     chainTiltGroup.position.y = -2.5
+    chainTiltGroup.position.x = -0.5
     
     let chainScale = 0.05
 
@@ -1018,6 +1053,22 @@ const backCanvas = () => {
             }
         }
     })
+    
+    // Form Events
+    let formName = ''
+    document.querySelector('#name').oninput = () => {
+        formName = document.querySelector('#name').value
+    }
+
+    let formEmail = ''
+    document.querySelector('#email').oninput = () => {
+        formEmail = document.querySelector('#email').value
+    }
+
+    let formMessage = ''
+    document.querySelector('#message').oninput = () => {
+        formMessage = document.querySelector('#message').value
+    }
 
     // Checkbox Events
     let isCardCBTicked = false
@@ -1049,10 +1100,12 @@ const backCanvas = () => {
     // Submit Events
     document.querySelector('.submitButtonDiv').addEventListener('mouseenter', () => {
         gsap.to('.submitBackground', {duration: 0.5, x: 0, ease: 'Power1.easeOut'})
+        gsap.to('.submitButtonDiv', {duration: 0, borderWidth: '2px', ease: 'Power1.easeOut'})
     })
 
     document.querySelector('.submitButtonDiv').addEventListener('mouseleave', () => {
         gsap.to('.submitBackground', {duration: 0.5, x: -300, ease: 'Power1.easeOut'})
+        gsap.to('.submitButtonDiv', {duration: 0, borderWidth: '1px', ease: 'Power1.easeOut'})
     })
 
     // Raycast
@@ -1157,7 +1210,6 @@ const backCanvas = () => {
             // snap: true,
             scrub: true,
             // pin: false,
-            // markers: true
         },
         y: 0,
         ease: 'none'
@@ -1193,7 +1245,7 @@ const colorChange = (x) => {
     gsap.to('.cardBGColor', {duration: 0, backgroundColor: mainColors[x][4]})
     gsap.to('.sliderBGColor', {duration: 0, backgroundColor: mainColors[x][5]})
 
-    gsap.to('textarea', {duration: 0, outlineColor: mainColors[x][2], borderColor: mainColors[x][2]})
+    gsap.to('textarea', {duration: 0, outlineColor: mainColors[x][2], borderColor: mainColors[x][2], backgroundColor: 'transparent'})
     gsap.to('input', {duration: 0, outlineColor: mainColors[x][2]})
     document.styleSheets[0].cssRules[76].style.backgroundColor = mainColors[x][2]
     gsap.to('.linkDivDupe', {duration: 0, borderColor: mainColors[x][2]})
