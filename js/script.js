@@ -754,7 +754,7 @@ const backCanvas = () => {
 
     // Sizes
     const sizes = {
-        width: 1600,
+        width: 1800,
         height: 1100
     }
 
@@ -766,7 +766,7 @@ const backCanvas = () => {
 
     window.addEventListener('resize', () => {    
         // Update sizes
-        sizes.width = 1600
+        sizes.width = 1800
         sizes.height = 1100
 
         // Update camera
