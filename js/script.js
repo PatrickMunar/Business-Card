@@ -1062,7 +1062,7 @@ const backCanvas = () => {
     let mailString = ''
 
     const mailToEvents = (name, about, message, card, work) => {
-        mailString = 'mailto:rptmunar@gmail.com?subject=From bznzcard.patrickmunar.com: '+ about +'&Body=Hi! I am '+ name +'.%0d%0a%0d%0aI just want to say that '+ message +'%0d%0a%0d%0a'
+        mailString = 'mailto:bznz.patrickmunar@gmail.com?subject=From bznzcard.patrickmunar.com: '+ about +'&Body=Hi! I am '+ name +'.%0d%0a%0d%0aI just want to say '+ message +'%0d%0a%0d%0a'
 
         if (card == true || work == true) {
             mailString += 'Lastly, '
