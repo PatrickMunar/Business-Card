@@ -742,7 +742,7 @@ const frontCanvas = () => {
             start: () =>  document.querySelector('.mainBody').clientHeight*0  + ' top',
             end: () =>  document.querySelector('.mainBody').clientHeight*1  + ' top',
             // toggleActions: "play none none reverse",
-            snap: true,
+            // snap: true,
             scrub: true,
             // pin: false,
             // markers: true,
