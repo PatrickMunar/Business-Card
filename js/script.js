@@ -98,7 +98,7 @@ const interactiveJS = () => {
 
         // Mobile Scaling
         if (window.innerWidth != prevWidth) {
-            window.scrollTo(0, 0)
+            // window.scrollTo(0, 0)
             if (window.innerWidth < 1100) {
                 location.reload()
     
@@ -116,7 +116,7 @@ const interactiveJS = () => {
 
         else {
             if (window.innerWidth > 1300) {
-                window.scrollTo(0, 0)
+                // window.scrollTo(0, 0)
             } 
         }
     })
