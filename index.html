@@ -224,7 +224,7 @@
     
             <section class="businessCardBack cardBGColor scaleCards">
 
-                <a href="https://www.patrickmunar.com"  id="linkDiv1">
+                <a href="https://www.patrickmunar.com"  id="linkDiv1" class="chainLink">
                     <div class="linkDiv mainBGColor">
                         <div class="linkText subColor">www.patrickmunar.com</div>
                         <div class="linkTextDupe">www.patrickmunar.com</div>
@@ -235,18 +235,7 @@
                     </div>
                 </a>
 
-                <a href="mailto:rptmunar@gmail.com" id="linkDiv2">
-                    <div class="linkDiv mainBGColor">
-                        <div class="linkText subColor">rptmunar@gmail.com</div>
-                        <div class="linkTextDupe">rptmunar@gmail.com</div>
-                    </div>
-                    <div class="linkDivDupe subBGColor">
-                        <div class="linkText subColor">rptmunar@gmail.com</div>
-                        <div class="linkTextDupe">rptmunar@gmail.com</div>
-                    </div>
-                </a>
-
-                <a href="https://github.com/PatrickMunar" id="linkDiv3">
+                <a href="https://github.com/PatrickMunar" id="linkDiv2" class="chainLink">
                     <div class="linkDiv mainBGColor">
                         <div class="linkText subColor">Github</div>
                         <div class="linkTextDupe">Github</div>
@@ -257,7 +246,7 @@
                     </div>
                 </a>
 
-                <a href="https://twitter.com/LilRuii" id="linkDiv4">
+                <a href="https://twitter.com/LilRuii" id="linkDiv3" class="chainLink">
                     <div class="linkDiv mainBGColor">
                         <div class="linkText subColor">Twitter</div>
                         <div class="linkTextDupe">Twitter</div>
@@ -268,7 +257,7 @@
                     </div>
                 </a>
 
-                <a href="https://www.linkedin.com/in/rptmunar/" id="linkDiv5">
+                <a href="https://www.linkedin.com/in/rptmunar/" id="linkDiv4" class="chainLink">
                     <div class="linkDiv mainBGColor">
                         <div class="linkText subColor">LinkedIn</div>
                         <div class="linkTextDupe">LinkedIn</div>
@@ -286,16 +275,16 @@
                         <div class="nameInputText">Hi! I am&nbsp;</div>
                         <div class="inputContainerDiv" id="nameContainerDiv">
                             <input type="text" name="name" id="name" class="inputText">
-                            <div class="inputUnderline mainBGColor"></div>
+                            <div class="inputUnderline mainBGColor" id="nameUnderline"></div>
                         </div>
                         <div class="nameInputText">&nbsp;and</div>
                     </div>
 
                     <div class="inputDiv">
-                        <div class="emailInputText">you can contact me at&nbsp;</div>
+                        <div class="emailInputText">this message is about&nbsp;</div>
                         <div class="inputContainerDiv" id="emailContainerDiv">
-                            <input type="email" name="email" id="email" class="inputEmail">
-                            <div class="inputUnderline mainBGColor"></div>
+                            <input type="text" name="about" id="about" class="inputEmail">
+                            <div class="inputUnderline mainBGColor" id="aboutUnderline"></div>
                         </div>
                         <div class="emailInputText">.</div>
                     </div>
@@ -309,15 +298,15 @@
                         <div class="messageInputText">Lastly, . . .&nbsp;</div>
                     </div>
 
-                    <div class="checkboxDiv">
-                        <div class="checkbox" id="cardCheckbox">
+                    <div class="checkboxDiv" id="cardCheckbox">
+                        <div class="checkbox">
                             <div class="tick mainBGColor" id="cardTick"></div>
                         </div>
                         <div class="checkboxInputText">I would like a card of my own!</div>
                     </div>
 
-                    <div class="checkboxDiv">
-                        <div class="checkbox" id="workCheckbox">
+                    <div class="checkboxDiv" id="workCheckbox">
+                        <div class="checkbox">
                             <div class="tick mainBGColor" id="workTick"></div>
                         </div>
                         <div class="checkboxInputText">Let's make cool stuff together!</div>
@@ -325,8 +314,9 @@
                 </form>
 
                 <div type="submit" class="submitButtonDiv mainColor">
-                    SEND IT
+                    MAIL IT
                     <div class="submitBackground"></div>
+                    <a href="" class="mailToLink"></a>
                 </div>
 
                 <canvas class="backCanvas"></canvas>

@@ -143,7 +143,7 @@ const interactiveJS = () => {
     // --------------------------------------
 
     // Link Events
-    const links = document.querySelectorAll('a')
+    const links = document.querySelectorAll('.chainLink')
     const linkDivs = document.querySelectorAll('.linkDiv')
 
     for (let i = 0; i < links.length; i++) {
@@ -913,8 +913,8 @@ const backCanvas = () => {
     const chainSpringGroup = new THREE.Group
     scene.add(chainSpringGroup)
 
-    chainSpringGroup.rotation.set(Math.PI/7, 0, Math.PI/7)
-    chainSpringGroup.rotation.set(Math.PI/7, 0, Math.PI/7)
+    chainSpringGroup.rotation.set(Math.PI/9, 0, Math.PI/9)
+    chainSpringGroup.rotation.set(Math.PI/9, 0, Math.PI/9)
     chainSpringGroup.position.set(2, -2, 0)
 
     const chainTiltGroup = new THREE.Group
@@ -1053,6 +1053,33 @@ const backCanvas = () => {
             }
         }
     })
+
+    // Mail To Events
+    let mailString = ''
+
+    const mailToEvents = (name, about, message, card, work) => {
+        mailString = 'mailto:rptmunar@gmail.com?subject=From bznzcard.patrickmunar.com: '+ about +'&Body=Hi! I am '+ name +'.%0d%0a%0d%0aI just want to say that '+ message +'%0d%0a%0d%0a'
+
+        if (card == true || work == true) {
+            mailString += 'Lastly, '
+        }
+
+        if (card == true) {
+            mailString += 'I would like a card of my own'
+            if (work == true) {
+                mailString += ', and '
+            }
+            else {
+                mailString += '!'
+            }
+        }
+
+        if (work == true) {
+            mailString += "let's make cool stuff together!"
+        }
+
+        document.querySelector('.mailToLink').href = mailString
+    }
     
     // Form Events
     let formName = ''
@@ -1060,9 +1087,9 @@ const backCanvas = () => {
         formName = document.querySelector('#name').value
     }
 
-    let formEmail = ''
-    document.querySelector('#email').oninput = () => {
-        formEmail = document.querySelector('#email').value
+    let formAbout = ''
+    document.querySelector('#about').oninput = () => {
+        formAbout = document.querySelector('#about').value
     }
 
     let formMessage = ''
@@ -1098,14 +1125,43 @@ const backCanvas = () => {
     })
     
     // Submit Events
+    let buzzTime = 0.2
+
     document.querySelector('.submitButtonDiv').addEventListener('mouseenter', () => {
-        gsap.to('.submitBackground', {duration: 0.5, x: 0, ease: 'Power1.easeOut'})
         gsap.to('.submitButtonDiv', {duration: 0, borderWidth: '2px', ease: 'Power1.easeOut'})
+        if (formName != '') {
+            if (formAbout != '') {
+                if (formMessage != '') {
+                    gsap.to('.submitBackground', {duration: 0.5, x: 0, ease: 'Power1.easeOut'})
+                    gsap.to('.mailToLink', {duration: 0, pointerEvents: 'auto'})
+                    mailToEvents(formName, formAbout, formMessage, isCardCBTicked, isWorkCBTicked)
+                }
+                else {
+                    gsap.to('textarea', {duration: buzzTime, borderWidth: '5px'})
+                    gsap.to('textarea', {duration: buzzTime, delay: buzzTime, borderWidth: '1px'})
+                    gsap.to('textarea', {duration: buzzTime, delay: buzzTime * 2, borderWidth: '5px'})
+                    gsap.to('textarea', {duration: buzzTime, delay: buzzTime * 3, borderWidth: '1px'})
+                }
+            }
+            else {
+                gsap.to('#aboutUnderline', {duration: buzzTime, scaleY: 5})
+                gsap.to('#aboutUnderline', {duration: buzzTime, delay: buzzTime, scaleY: 1})
+                gsap.to('#aboutUnderline', {duration: buzzTime, delay: buzzTime * 2, scaleY: 5})
+                gsap.to('#aboutUnderline', {duration: buzzTime, delay: buzzTime * 3, scaleY: 1})
+            }
+        }
+        else {
+            gsap.to('#nameUnderline', {duration: buzzTime, scaleY: 5})
+            gsap.to('#nameUnderline', {duration: buzzTime, delay: buzzTime, scaleY: 1})
+            gsap.to('#nameUnderline', {duration: buzzTime, delay: buzzTime * 2, scaleY: 5})
+            gsap.to('#nameUnderline', {duration: buzzTime, delay: buzzTime * 3, scaleY: 1})
+        }
     })
 
     document.querySelector('.submitButtonDiv').addEventListener('mouseleave', () => {
         gsap.to('.submitBackground', {duration: 0.5, x: -300, ease: 'Power1.easeOut'})
         gsap.to('.submitButtonDiv', {duration: 0, borderWidth: '1px', ease: 'Power1.easeOut'})
+        gsap.to('.mailToLink', {duration: 0, pointerEvents: 'none'})
     })
 
     // Raycast
@@ -1236,7 +1292,6 @@ const backCanvas = () => {
 backCanvas()
 
 // Color Change
-
 const colorChange = (x) => {
     gsap.to('.mainColor', {duration: 0, color: mainColors[x][2]})
     gsap.to('.mainBGColor', {duration: 0, backgroundColor: mainColors[x][2]})
@@ -1247,7 +1302,7 @@ const colorChange = (x) => {
 
     gsap.to('textarea', {duration: 0, outlineColor: mainColors[x][2], borderColor: mainColors[x][2], backgroundColor: 'transparent'})
     gsap.to('input', {duration: 0, outlineColor: mainColors[x][2]})
-    document.styleSheets[0].cssRules[76].style.backgroundColor = mainColors[x][2]
+    document.styleSheets[0].cssRules[77].style.backgroundColor = mainColors[x][2]
     gsap.to('.linkDivDupe', {duration: 0, borderColor: mainColors[x][2]})
     gsap.to('.submitButtonDiv', {duration: 0, borderColor: mainColors[x][2]})
     gsap.to('.checkbox', {duration: 0, borderColor: mainColors[x][2]})
