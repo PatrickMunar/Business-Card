@@ -18,6 +18,7 @@ const particleGroup = []
 let boxMesh, tetraMesh, sphereMesh
 
 const linksArray = []
+const logosArray = []
 
 for (let i = 0; i < mainColors.length; i++) {
     const x = new THREE.Group
@@ -25,6 +26,9 @@ for (let i = 0; i < mainColors.length; i++) {
     linksArray[i] = []
     linksArray[i][0] = x
     linksArray[i][1] = y
+
+    const z = new THREE.Group
+    logosArray[i] = z
 }
 
 // Flip Indicator
@@ -108,6 +112,12 @@ const interactiveJS = () => {
                     gsap.to('.scaleCards', {duration: 0, scaleRatio})
                 }
             }
+        }
+
+        else {
+            if (window.innerWidth > 1100) {
+                window.scrollTo(0, 0)
+            } 
         }
     })
 
@@ -238,7 +248,6 @@ const interactiveJS = () => {
         // Call tick again on the next frame
         window.requestAnimationFrame(tick)
     }
-
     // ScrollTriggers
     // -------------------------------------------------
     // gsap.fromTo(businessCardGroup.rotation, {y: 0}, {
@@ -255,33 +264,6 @@ const interactiveJS = () => {
     //     y: Math.PI,
     //     ease: 'none'
     // })
-    
-    // Image Loader
-
-    let images = document.images
-    let len = images.length
-    let counter = 0
-
-    const incrementCounter = () => {
-        counter++
-        if ( counter >= (len - 1) ) {
-            gsap.to('.loadingPage', {duration: 1, delay: 1, opacity: 0})
-            setTimeout(() => {
-
-            }, 1000)
-        }
-    }
-
-    for (let i = 0; i < images.length; i++) {
-        if(images[i].complete) {
-            incrementCounter()
-        }
-        else {
-            images[i].addEventListener( 'load', () => {
-                incrementCounter()
-            }, false )
-        }
-    }
 
     tick()
 }
@@ -832,31 +814,13 @@ const frontCanvas = () => {
     gsap.to('.businessCardBack', {duration: 0, opacity: 0})
     
     // Image Loader
-
-    let images = document.images
-    let len = images.length
-    let counter = 0
-
-    const incrementCounter = () => {
-        counter++
-        if ( counter >= (len - 1) ) {
-            gsap.to('.loadingPage', {duration: 1, delay: 1, opacity: 0})
-            setTimeout(() => {
-                startupAnimations()
-            }, 1000)
-        }
-    }
-
-    for (let i = 0; i < images.length; i++) {
-        if(images[i].complete) {
-            incrementCounter()
-        }
-        else {
-            images[i].addEventListener( 'load', () => {
-                incrementCounter()
-            }, false )
-        }
-    }
+   
+    window.addEventListener('load', () => {
+        gsap.to('.loadingPage', {duration: 1, delay: 1, opacity: 0})
+        setTimeout(() => {
+            startupAnimations()
+        }, 2000)
+    }) 
 
     tick()
 }
@@ -882,7 +846,7 @@ const backCanvas = () => {
 
     // Sizes
     const sizes = {
-        width: 1100,
+        width: 1600,
         height: 1100
     }
 
@@ -894,7 +858,7 @@ const backCanvas = () => {
 
     window.addEventListener('resize', () => {    
         // Update sizes
-        sizes.width = 1100
+        sizes.width = 1600
         sizes.height = 1100
 
         // Update camera
@@ -914,6 +878,20 @@ const backCanvas = () => {
     // GLTF Loader
     const gltfLoader = new THREE.GLTFLoader()
 
+    // Logo
+    const logosParallaxGroup = new THREE.Group
+    scene.add(logosParallaxGroup)
+
+    const logosSpringGroup = new THREE.Group
+    logosParallaxGroup.add(logosSpringGroup)
+
+    const logosGroup = new THREE.Group
+    logosSpringGroup.add(logosGroup)
+
+    logosGroup.position.set(2.75,-1.7,2)
+    logosGroup.rotation.set(0, -Math.PI/3, Math.PI/6)
+
+    // Chain
     const chainSpringGroup = new THREE.Group
     scene.add(chainSpringGroup)
 
@@ -931,6 +909,7 @@ const backCanvas = () => {
 
     for (let i = 0; i < mainColors.length; i++) {
 
+        // Chain
         gltfLoader.load(
             './gltf/MainLinks.glb',
             (obj) => {
@@ -951,17 +930,34 @@ const backCanvas = () => {
             }
         )
 
+        // Logo
+        gltfLoader.load(
+            './gltf/MainLogo.glb',
+            (obj) => {
+                obj.scene.scale.set(chainScale * 0.4, chainScale * 0.4, chainScale * 0.4)
+    
+                logosArray[i].add(obj.scene)
+                obj.scene.children[0].material.color = mainColors[i][0]
+            }
+        )
+
         if (i == 0) {
             chainTiltGroup.add(linksArray[i][0])
             chainTiltGroup.add(linksArray[i][1])
+
+            logosGroup.add(logosArray[i])
         }
     }
 
     let linkIndex = 0
 
     const linkChange = () => {
+        // Chain
         chainTiltGroup.remove(linksArray[linkIndex][0])
         chainTiltGroup.remove(linksArray[linkIndex][1])
+
+        // Logo
+        logosGroup.remove(logosArray[linkIndex])
 
         if (linkIndex < mainColors.length - 1) {
             linkIndex++
@@ -972,6 +968,8 @@ const backCanvas = () => {
 
         chainTiltGroup.add(linksArray[linkIndex][0])
         chainTiltGroup.add(linksArray[linkIndex][1])
+
+        logosGroup.add(logosArray[linkIndex])
     }
 
     // 3D Objects
@@ -1049,7 +1047,7 @@ const backCanvas = () => {
 
                 gsap.to('.titleTopRightContainer', {duration: 0.75, delay: 0.1, x: 40, ease: 'Power1.easeOut'})
                 gsap.to('.titleBotRightContainer', {duration: 0.75, delay: 0.1, x: -40, ease: 'Power1.easeOut'})
-    
+
                 // Back
                 // gsap.to('.businessCardBack', {duration: 0, backgroundColor: '#f5f5f5', color: '#000000'})
                 colorChange(colorIndex)
@@ -1130,6 +1128,7 @@ const backCanvas = () => {
     
     // Submit Events
     let buzzTime = 0.2
+    let shadowIndex = 0
 
     document.querySelector('.submitButtonDiv').addEventListener('mouseenter', () => {
         gsap.to('.submitButtonDiv', {duration: 0, borderWidth: '2px', ease: 'Power1.easeOut'})
@@ -1141,10 +1140,16 @@ const backCanvas = () => {
                     mailToEvents(formName, formAbout, formMessage, isCardCBTicked, isWorkCBTicked)
                 }
                 else {
-                    gsap.to('textarea', {duration: buzzTime, borderWidth: '5px'})
-                    gsap.to('textarea', {duration: buzzTime, delay: buzzTime, borderWidth: '1px'})
-                    gsap.to('textarea', {duration: buzzTime, delay: buzzTime * 2, borderWidth: '5px'})
-                    gsap.to('textarea', {duration: buzzTime, delay: buzzTime * 3, borderWidth: '1px'})
+                    if (colorIndex != 0) {
+                        shadowIndex = colorIndex - 1
+                    }
+                    else {
+                        shadowIndex = mainColors.length - 1
+                    }
+                    gsap.to('textarea', {duration: buzzTime, boxShadow: '0 0 3px 3px ' + mainColors[shadowIndex][2]})
+                    gsap.to('textarea', {duration: buzzTime, delay: buzzTime, boxShadow: '0 0 1px 0px ' + mainColors[shadowIndex][2]})
+                    gsap.to('textarea', {duration: buzzTime, delay: buzzTime * 2, boxShadow: '0 0 3px 3px ' + mainColors[shadowIndex][2]})
+                    gsap.to('textarea', {duration: buzzTime, delay: buzzTime * 3, boxShadow: '0 0 1px 0px ' + mainColors[shadowIndex][2]})
                 }
             }
             else {
@@ -1213,6 +1218,10 @@ const backCanvas = () => {
             gsap.to(linksArray[i][1].position, {duration: 1, y: mouse.y * 0.5})
         }
 
+        for (let i = 0; i < mainColors.length; i++) {
+            gsap.to(logosArray[i].position, {duration: 2, y: mouse.y * 0.15, x: mouse.x * 0.075})
+        }
+
         // 3D --------------
 
         // Update Pointer Coordinates
@@ -1247,6 +1256,10 @@ const backCanvas = () => {
         else {
             gsap.to('.businessCardFront', {duration: 0, pointerEvents: 'none'})
             gsap.to('.businessCardBack', {duration: 0, pointerEvents: 'auto'})
+        }
+
+        for (let i = 0; i < mainColors.length; i++) {
+            gsap.to(logosArray[i].rotation, {duration: 9, x: Math.sin(elapsedTime) * 0.2, y: Math.cos(elapsedTime) * 0.2})
         }
 
         // Camera Movement
@@ -1290,6 +1303,20 @@ const backCanvas = () => {
         ease: 'none'
     })
 
+    gsap.fromTo(logosSpringGroup.position, {y: -1, z: -3}, {
+        scrollTrigger: {
+            trigger: '.mainBody',
+            start: () =>  document.querySelector('.mainBody').clientHeight*0  + ' top',
+            end: () =>  document.querySelector('.mainBody').clientHeight*1  + ' top',
+            // toggleActions: "play none none reverse",
+            // snap: true,
+            scrub: true,
+            // pin: false,
+        },
+        y: 0, z: 0,
+        ease: 'none'
+    })
+
     tick()
 }
 
@@ -1311,6 +1338,8 @@ const colorChange = (x) => {
     gsap.to('.submitButtonDiv', {duration: 0, borderColor: mainColors[x][2]})
     gsap.to('.checkbox', {duration: 0, borderColor: mainColors[x][2]})
     gsap.to('.submitBackground', {duration: 0, backgroundColor: mainColors[x][3]})
+
+    gsap.to('.logoSVGPath', {duration: 0, stroke: mainColors[x][3]})
 
     for (let i = 0; i < particleGroup.length; i++) {
         gsap.to(particleGroup[i].material, {duration: 0, color: mainColors[x][i%2]})

@@ -49,9 +49,9 @@ div {
 /* Loading Page */
 
 .loadingPage {
-    display: none !important;
+    display: flex;
     position: fixed;
-    background-image: linear-gradient(to bottom, #1a1926, 50%, #3e0a3d);
+    background-color: #f7f7f7;
     width: 100vw;
     height: 100vh;
     z-index: 90000000000000000000000000000000000000;
@@ -59,6 +59,18 @@ div {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.loadingPageCircle {
+    width: 15rem;
+    height: 15rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7.5rem;
+    cursor: pointer;
+    background-color: #7676e4;
+    box-shadow: 0 0 10px 1px #0000003a;
 }
 
 /* Defaults */
@@ -219,7 +231,7 @@ a {
 }
 
 .mainPhoto {
-    position: relative;
+    position: absolute;
     width: 15rem;
     height: 15rem;
     display: flex;
@@ -908,4 +920,10 @@ a {
     z-index: 2;
     pointer-events: none;
     /* transform: translateY(calc((100vh - (2/3.5 * 110rem))/2 * -1)); */
+}
+
+/* Logo */
+.logoSVGPath {
+    stroke: #45e2b6;
+    stroke-width: 1px;
 }
