@@ -75,6 +75,8 @@ const interactiveJS = () => {
         }
     }
 
+    let prevWidth = window.innerWidth
+
     window.addEventListener('resize', () => {    
         // Update sizes
         sizes.width = window.innerWidth
@@ -92,17 +94,19 @@ const interactiveJS = () => {
         aspectRatio = window.innerWidth/window.innerHeight
 
         // Mobile Scaling
-        if (window.innerWidth < 1100) {
-            location.reload()
-
-            if (aspectRatio > 3.5/2) {
-                scaleRatio = window.innerHeight/(1200 * 2/3.5)
-                gsap.to('.scaleCards', {duration: 0, scale: scaleRatio})
-            }
-
-            else {
-                scaleRatio = window.innerWidth/1200
-                gsap.to('.scaleCards', {duration: 0, scaleRatio})
+        if (window.innerWidth != prevWidth) {
+            if (window.innerWidth < 1100) {
+                location.reload()
+    
+                if (aspectRatio > 3.5/2) {
+                    scaleRatio = window.innerHeight/(1200 * 2/3.5)
+                    gsap.to('.scaleCards', {duration: 0, scale: scaleRatio})
+                }
+    
+                else {
+                    scaleRatio = window.innerWidth/1200
+                    gsap.to('.scaleCards', {duration: 0, scaleRatio})
+                }
             }
         }
     })
