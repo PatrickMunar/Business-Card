@@ -719,98 +719,6 @@ const frontCanvas = () => {
         window.requestAnimationFrame(tick)
     }
 
-    // ScrollTriggers
-    // -------------------------------------------------
-    // gsap.fromTo(businessCardGroup.rotation, {y: 0}, {
-    //     scrollTrigger: {
-    //         trigger: '.mainBody',
-    //         start: () =>  document.querySelector('.mainBody').clientHeight*0  + ' top',
-    //         end: () =>  document.querySelector('.mainBody').clientHeight*1  + ' top',
-    //         // toggleActions: "play none none reverse",
-    //         // snap: true,
-    //         scrub: true,
-    //         // pin: false,
-    //         // markers: true,
-    //     },
-    //     y: Math.PI,
-    //     ease: 'none'
-    // })
-
-    gsap.fromTo(flipValue, {value: 0}, {
-        scrollTrigger: {
-            trigger: '.mainBody',
-            start: () =>  document.querySelector('.mainBody').clientHeight*0  + ' top',
-            end: () =>  document.querySelector('.mainBody').clientHeight*1  + ' top',
-            // toggleActions: "play none none reverse",
-            // snap: true,
-            scrub: true,
-            // pin: false,
-            // markers: true,
-        },
-        value: 1,
-        ease: 'none'
-    })
-
-    gsap.fromTo('.businessCardFront', {rotateY: '0deg'}, {
-        scrollTrigger: {
-            trigger: '.mainBody',
-            start: () =>  document.querySelector('.mainBody').clientHeight*0  + ' top',
-            end: () =>  document.querySelector('.mainBody').clientHeight*1  + ' top',
-            // toggleActions: "play none none reverse",
-            // snap: true,
-            scrub: true,
-            // pin: false,
-            // markers: true,
-        },
-        rotateY: '180deg',
-        ease: 'none'
-    })
-
-    gsap.fromTo('.businessCardBack', {rotateY: '-180deg'}, {
-        scrollTrigger: {
-            trigger: '.mainBody',
-            start: () =>  document.querySelector('.mainBody').clientHeight*0  + ' top',
-            end: () =>  document.querySelector('.mainBody').clientHeight*1  + ' top',
-            // toggleActions: "play none none reverse",
-            // snap: true,
-            scrub: true,
-            // pin: false,
-            // markers: true
-        },
-        rotateY: '0deg',
-        ease: 'none'
-    })
-
-    gsap.fromTo('.businessCardBack', {opacity: 0}, {
-        scrollTrigger: {
-            trigger: '.mainBody',
-            start: () =>  document.querySelector('.mainBody').clientHeight*0.5  + ' top',
-            toggleActions: "restart none none reverse",
-            // snap: true,
-            // scrub: true,
-            // pin: false,
-            // markers: true
-        },
-        duration: 0.01,
-        opacity: 1,
-        ease: 'none'
-    })
-
-    gsap.fromTo('.businessCardFront', {opacity: 1}, {
-        scrollTrigger: {
-            trigger: '.mainBody',
-            start: () =>  document.querySelector('.mainBody').clientHeight*0.5  + ' top',
-            toggleActions: "restart none none reverse",
-            // snap: true,
-            // scrub: true,
-            // pin: false,
-            // markers: true
-        },
-        duration: 0.01,
-        opacity: 0,
-        ease: 'none'
-    })
-
     gsap.to('.businessCardBack', {duration: 0, opacity: 0})
     
     // Image Loader
@@ -1262,6 +1170,11 @@ const backCanvas = () => {
             gsap.to(logosArray[i].rotation, {duration: 9, x: Math.sin(elapsedTime) * 0.2, y: Math.cos(elapsedTime) * 0.2})
         }
 
+        // Slider Dots
+        gsap.to('.sliderDot1', {duration: 0, scale: Math.abs(Math.sin(elapsedTime * 1))})
+        gsap.to('.sliderDot2', {duration: 0, scale: Math.abs(Math.sin(elapsedTime * 1 + Math.PI * 2 / 3))})
+        gsap.to('.sliderDot3', {duration: 0, scale: Math.abs(Math.sin(elapsedTime * 1 + Math.PI * 1 / 3))})
+
         // Camera Movement
         // gsap.to(camera.rotation, {duration: 1, x: mouse.y * 0.01, y: - mouse.x * 0.01})
 
@@ -1274,47 +1187,40 @@ const backCanvas = () => {
         window.requestAnimationFrame(tick)
     }
 
-    gsap.fromTo(chainTiltGroup.position, {y: -4}, {
-        scrollTrigger: {
-            trigger: '.mainBody',
-            start: () =>  document.querySelector('.mainBody').clientHeight*0  + ' top',
-            end: () =>  document.querySelector('.mainBody').clientHeight*1  + ' top',
-            // toggleActions: "play none none reverse",
-            // snap: true,
-            scrub: true,
-            // pin: false,
-        },
-        y: 0,
-        ease: 'none'
+    // Flip Slider
+    let flipAngle = 0
+    document.querySelector('.slider').oninput = () => {
+        flipAngle = document.querySelector('.slider').value
+        
+        flipValue.value = flipAngle/180
+
+        gsap.to('.businessCardFront', {duration: 0, rotateY: flipAngle + 'deg'})
+        gsap.to('.businessCardBack', {duration: 0, rotateY: flipAngle - 180 + 'deg'})
+
+        gsap.to(chainTiltGroup.position, {duration: 0, y: -4 + flipAngle/180 * 4})
+        gsap.to(chainTiltGroup.rotation, {duration: 0, y: -Math.PI*3 + Math.PI*3 * flipAngle/180})
+        gsap.to(logosSpringGroup.position, {duration: 0, y: -1 + 1 * flipAngle/180, z: -3 + 3 * flipAngle/180})
+
+        if (flipAngle <= 90) {
+            gsap.to('.businessCardFront', {duration: 0, opacity: 1})
+            gsap.to('.businessCardBack', {duration: 0, opacity: 0})
+        }
+        else {
+            gsap.to('.businessCardFront', {duration: 0, opacity: 0})
+            gsap.to('.businessCardBack', {duration: 0, opacity: 1})
+        }
+    }
+
+    gsap.to(chainTiltGroup.position, {duration: 0.1, y: -4})
+    gsap.to(chainTiltGroup.rotation, {duration: 0.1, y: -Math.PI * 3})
+    gsap.to(logosSpringGroup.position, {duration: 0.1, y: -1, z: -3})
+
+    document.querySelector('.slider').addEventListener('mouseenter', () => {
+        gsap.to('.sliderText', {duration: 0.2, opacity: 1, ease: 'Power1.easeOut'})
     })
 
-    gsap.fromTo(chainTiltGroup.rotation, {y: Math.PI * 3}, {
-        scrollTrigger: {
-            trigger: '.mainBody',
-            start: () =>  document.querySelector('.mainBody').clientHeight*0  + ' top',
-            end: () =>  document.querySelector('.mainBody').clientHeight*1  + ' top',
-            // toggleActions: "play none none reverse",
-            // snap: true,
-            scrub: true,
-            // pin: false,
-            // markers: true
-        },
-        y: 0,
-        ease: 'none'
-    })
-
-    gsap.fromTo(logosSpringGroup.position, {y: -1, z: -3}, {
-        scrollTrigger: {
-            trigger: '.mainBody',
-            start: () =>  document.querySelector('.mainBody').clientHeight*0  + ' top',
-            end: () =>  document.querySelector('.mainBody').clientHeight*1  + ' top',
-            // toggleActions: "play none none reverse",
-            // snap: true,
-            scrub: true,
-            // pin: false,
-        },
-        y: 0, z: 0,
-        ease: 'none'
+    document.querySelector('.slider').addEventListener('mouseleave', () => {
+        gsap.to('.sliderText', {duration: 0.2, opacity: 0, ease: 'Power1.easeOut'})
     })
 
     tick()
@@ -1333,13 +1239,15 @@ const colorChange = (x) => {
 
     gsap.to('textarea', {duration: 0, outlineColor: mainColors[x][2], borderColor: mainColors[x][2], backgroundColor: 'transparent'})
     gsap.to('input', {duration: 0, outlineColor: mainColors[x][2]})
-    document.styleSheets[0].cssRules[77].style.backgroundColor = mainColors[x][2]
+    document.styleSheets[0].cssRules[78].style.backgroundColor = mainColors[x][2]
     gsap.to('.linkDivDupe', {duration: 0, borderColor: mainColors[x][2]})
     gsap.to('.submitButtonDiv', {duration: 0, borderColor: mainColors[x][2]})
     gsap.to('.checkbox', {duration: 0, borderColor: mainColors[x][2]})
     gsap.to('.submitBackground', {duration: 0, backgroundColor: mainColors[x][3]})
 
     gsap.to('.logoSVGPath', {duration: 0, stroke: mainColors[x][3]})
+
+    document.styleSheets[0].cssRules[103].style.backgroundColor = mainColors[x][2]
 
     for (let i = 0; i < particleGroup.length; i++) {
         gsap.to(particleGroup[i].material, {duration: 0, color: mainColors[x][i%2]})
