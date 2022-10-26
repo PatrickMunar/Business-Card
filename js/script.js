@@ -1014,11 +1014,11 @@ const backCanvas = () => {
     document.querySelector('#cardCheckbox').addEventListener('click', () => {
         if (isCardCBTicked == false) {
             isCardCBTicked = true
-            gsap.to('#cardTick', {duration: 0.05, opacity: 1})
+            gsap.to('#cardTick', {duration: 0.05, scale: 1})
         }
         else {
             isCardCBTicked = false
-            gsap.to('#cardTick', {duration: 0.05, opacity: 0})
+            gsap.to('#cardTick', {duration: 0.05, scale: 0})
         }
     })
 
@@ -1027,11 +1027,11 @@ const backCanvas = () => {
     document.querySelector('#workCheckbox').addEventListener('click', () => {
         if (isWorkCBTicked == false) {
             isWorkCBTicked = true
-            gsap.to('#workTick', {duration: 0.05, opacity: 1})
+            gsap.to('#workTick', {duration: 0.05, scale: 1})
         }
         else {
             isWorkCBTicked = false
-            gsap.to('#workTick', {duration: 0.05, opacity: 0})
+            gsap.to('#workTick', {duration: 0.05, scale: 0})
         }
     })
     

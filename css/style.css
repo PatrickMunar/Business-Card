@@ -841,7 +841,7 @@ textarea::selection, input::selection {
     height: 100%;
     background-color: #7676e4;
     border-radius: 3px;
-    opacity: 0;
+    transform: scale(0);
 }
 
 /* Link Div */
