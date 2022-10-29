@@ -89,7 +89,7 @@ html {
 }
 
 body {
-    background-color: #f7f7f7;
+    background-color: transparent;
     box-sizing: border-box;
     z-index: 100;
     font-size: 10px;
@@ -105,7 +105,7 @@ body {
     box-sizing: border-box;
     width: 100vw;
     height: 100vh;
-    z-index: 0;
+    z-index: -9999999999999;
     pointer-events: none;
 }
 
@@ -133,12 +133,25 @@ a {
 
     @media (orientation: portrait) {
         /* Portrait */
-
+        .slider {
+            width: 90vw !important;
+        }
     }
       
     @media (orientation: landscape) {
         /* Landscape */
 
+        .flipSlider {
+            justify-content: flex-end !important;
+            align-items: flex-start !important;
+            /* padding-bottom: 8rem; */
+        }
+
+        .slider {
+            transform: rotateZ(-90deg) translateX(-50vh) translateY(35vh);
+            width: 90vh !important;
+        }
+        
     }
 }
 
@@ -205,7 +218,8 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 3;
+    z-index: 1;
+    background-color: #7676e41a;
 }
 
 /* Header */
@@ -683,7 +697,8 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 0;
+    z-index: -1;
+    background-color: #f5f5f5;
 }
 
 .contactForm {

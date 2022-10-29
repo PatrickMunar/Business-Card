@@ -4,13 +4,13 @@ gsap.registerPlugin(ScrollTrigger)
 window.history.scrollRestoration = 'manual'
 
 const mainColors = [
-    [new THREE.Color(0x7676e4), new THREE.Color(0x45e2b6), '#7676e4', '#45e2b6', '#7676e410', '#7676e440'],
-    [new THREE.Color(0x101820), new THREE.Color(0xffffff), '#101820', '#ffffff', '#10182010', '#10182040'],
-    [new THREE.Color(0x00539C), new THREE.Color(0xFC766A), '#00539C', '#FC766A', '#00539C10', '#00539C40'], 
-    [new THREE.Color(0xF93822), new THREE.Color(0xFDD20E), '#F93822', '#FDD20E', '#F9382210', '#F9382240'], 
-    [new THREE.Color(0x6E6E6D), new THREE.Color(0xFAD0C9), '#6E6E6D', '#FAD0C9', '#6E6E6D10', '#6E6E6D40'], 
-    [new THREE.Color(0x1D90F3), new THREE.Color(0xFFFE03), '#1D90F3', '#FFFE03', '#1D90F310', '#1D90F340'],
-    [new THREE.Color(0xfe7f95), new THREE.Color(0xffe5ee), '#fe7f95', '#ffe5ee', '#fe7f9510', '#fe7f9540'],
+    [new THREE.Color(0x7676e4), new THREE.Color(0x45e2b6), '#7676e4', '#45e2b6', '#7676e41a', '#7676e440'],
+    // [new THREE.Color(0x101820), new THREE.Color(0xffffff), '#101820', '#ffffff', '#1018201a', '#10182040'],
+    [new THREE.Color(0x00539C), new THREE.Color(0xFC766A), '#00539C', '#FC766A', '#00539C1a', '#00539C40'], 
+    [new THREE.Color(0xF93822), new THREE.Color(0xFDD20E), '#F93822', '#FDD20E', '#F938221a', '#F9382240'], 
+    [new THREE.Color(0x6E6E6D), new THREE.Color(0xFAD0C9), '#6E6E6D', '#FAD0C9', '#6E6E6D1a', '#6E6E6D40'], 
+    [new THREE.Color(0x1D90F3), new THREE.Color(0xFFFE03), '#1D90F3', '#FFFE03', '#1D90F31a', '#1D90F340'],
+    [new THREE.Color(0xfe7f95), new THREE.Color(0xffe5ee), '#fe7f95', '#ffe5ee', '#fe7f951a', '#fe7f9540'],
 ]
 let colorIndex = 1
 
@@ -43,6 +43,7 @@ const interactiveJS = () => {
 
     // Scene
     const scene = new THREE.Scene()
+    scene.background = new THREE.Color(0x00040d)
 
     // Lighting
     const ambientLight = new THREE.AmbientLight(0xf3f3f3, 1)
@@ -130,6 +131,55 @@ const interactiveJS = () => {
     // 3D Objects
     // ----------------------------------------------------------------
 
+    let lineCounter = 0
+
+    const makeLine = () => {
+        let index = 0
+        let hex = 0
+
+        if (colorIndex != 0) {
+            index = colorIndex - 1
+        }
+        else {
+            index = mainColors.length - 1
+        }
+
+        if (lineCounter%2 != 0) {
+            hex = 1
+        }
+
+        const lineM = new THREE.LineBasicMaterial({
+            color: mainColors[index][hex]
+        });
+
+        const x = (Math.random() - 0.5) * 5
+        const y = (Math.random() - 0.5) * 3
+        
+        const points = []
+        points.push( new THREE.Vector3( x, y, -20 ) )
+        points.push( new THREE.Vector3( x, y, -18 ) )
+        
+        const lineG = new THREE.BufferGeometry().setFromPoints( points )
+        
+        const line = new THREE.Line( lineG, lineM )
+        scene.add( line )
+
+        const time = Math.random() + 2
+
+        gsap.to(line.position, {duration: time, z: 40})
+
+        setTimeout(() => {
+            makeLine()
+        }, 10)
+
+        setTimeout(() => {
+            scene.remove(line)
+        }, time * 1000 + 100)
+
+        lineCounter++
+    }
+    makeLine()
+
     // ----------------------------------------------------------------
 
     // Base camera
@@ -210,7 +260,7 @@ const interactiveJS = () => {
         mouseFlip.x = mouse.x + 0.5
 
         // Perspective
-        // gsap.to('.perspectiveChangeDiv', {duration: 1, rotateY: mouse.x * 10 + 'deg', rotateX: -mouse.y * 10 + 'deg', x: mouse.x * 20, y: -mouse.y * 20})
+        gsap.to(camera.rotation, {duration: 0.5, y: -mouse.x / 0.5 * Math.PI * 2/180, x: mouse.y / 0.5 * Math.PI * 2/180})
 
         // 3D --------------
 
@@ -1241,6 +1291,7 @@ const colorChange = (x) => {
     gsap.to('.subColor', {duration: 0, color: mainColors[x][3]})
     gsap.to('.cardBGColor', {duration: 0, backgroundColor: mainColors[x][4]})
     gsap.to('.sliderBGColor', {duration: 0, backgroundColor: mainColors[x][5]})
+    gsap.to('.topDiv', {duration: 0, backgroundColor: mainColors[x][4]})
 
     gsap.to('textarea', {duration: 0, outlineColor: mainColors[x][2], borderColor: mainColors[x][2], backgroundColor: 'transparent'})
     gsap.to('input', {duration: 0, outlineColor: mainColors[x][2]})
