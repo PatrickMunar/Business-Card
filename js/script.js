@@ -152,19 +152,19 @@ const interactiveJS = () => {
             color: mainColors[index][hex]
         });
 
-        const x = (Math.random() - 0.5) * 5
-        const y = (Math.random() - 0.5) * 3
+        const x = (Math.random() - 0.5) * 10
+        const y = (Math.random() - 0.5) * 8
         
         const points = []
         points.push( new THREE.Vector3( x, y, -20 ) )
-        points.push( new THREE.Vector3( x, y, -18 ) )
+        points.push( new THREE.Vector3( x, y, -19 ) )
         
         const lineG = new THREE.BufferGeometry().setFromPoints( points )
         
         const line = new THREE.Line( lineG, lineM )
         scene.add( line )
 
-        const time = Math.random() + 2
+        const time = Math.random() + 6
 
         gsap.to(line.position, {duration: time, z: 40})
 
