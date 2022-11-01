@@ -1071,3 +1071,8 @@ a {
     position: absolute;
     transform: scale(4.5) translateX(7rem) translateY(3rem) rotateZ(-20deg);
 }
+
+.logoSVGPathBack {
+    stroke: #7676e4;
+    stroke-width: 1px;
+}
