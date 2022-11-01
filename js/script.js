@@ -1302,6 +1302,7 @@ const colorChange = (x) => {
     gsap.to('.submitBackground', {duration: 0, backgroundColor: mainColors[x][3]})
 
     gsap.to('.logoSVGPath', {duration: 0, stroke: mainColors[x][3]})
+    gsap.to('.logoSVGPathBack', {duration: 0, stroke: mainColors[x][2]})
 
     document.styleSheets[0].cssRules[103].style.backgroundColor = mainColors[x][2]
 

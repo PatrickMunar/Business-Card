@@ -131,6 +131,10 @@ a {
 @media screen and (max-width: 1180px) {
     /* Responsive Common */
 
+    .frontCover, .backCover {
+        display: flex !important;
+    }
+
     .backCanvas, .frontCanvas {
         display: none !important;
     }
@@ -1033,4 +1037,37 @@ a {
     border-radius: 50%;
     background-color: #45e2b6;
     margin-inline: 0.5rem;
+}
+
+/* Covers */
+
+.frontCover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.strip {
+    width: 16rem;
+    height: 100%;
+    background-color: #45e2b6;
+    transform: translateX(-41.5rem);
+}
+
+.backCover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+#logoSVGBack {
+    position: absolute;
+    transform: scale(4.5) translateX(7rem) translateY(3rem) rotateZ(-20deg);
 }
