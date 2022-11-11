@@ -95,7 +95,6 @@ body {
     font-size: 10px;
     box-sizing: border-box;
     width: 100vw;
-    height: 100vh;
     overflow-x: hidden;
 }
 
@@ -122,6 +121,7 @@ main {
 a {
     text-decoration: none;
     color: #000000;
+    cursor: pointer;
 }
 
 /* Responsive */
@@ -131,13 +131,13 @@ a {
 @media screen and (max-width: 1180px) {
     /* Responsive Common */
 
-    .frontCover, .backCover {
+    /* .frontCover, .backCover {
         display: flex !important;
     }
 
     .backCanvas, .frontCanvas {
         display: none !important;
-    }
+    } */
 
     @media (orientation: portrait) {
         /* Portrait */
@@ -175,7 +175,6 @@ a {
 /* Business Card */
 
 .perspectiveChangeDiv {
-    position: fixed;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -763,7 +763,9 @@ const frontCanvas = () => {
         sphereBobbleGroup.position.y = Math.sin(elapsedTime + Math.PI*2/3) * 0.25
 
         // Render
-        renderer.render(scene, camera)
+        if (flipValue.value < 0.5) {
+            renderer.render(scene, camera)
+        }
 
         // Call tick again on the next frame
         window.requestAnimationFrame(tick)
@@ -1232,7 +1234,9 @@ const backCanvas = () => {
         // Object Movement
 
         // Render
-        renderer.render(scene, camera)
+        if (flipValue.value >= 0.5) {
+            renderer.render(scene, camera)
+        }
 
         // Call tick again on the next frame
         window.requestAnimationFrame(tick)
