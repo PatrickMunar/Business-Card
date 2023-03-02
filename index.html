@@ -1,22 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Title & Favicon -->
     <title>Business Card | Patrick Munar</title>
-    <link rel="icon" href="./images/Logo.svg" sizes="any" type="image/svg+xml">
+    <link
+      rel="icon"
+      href="./images/Logo.svg"
+      sizes="any"
+      type="image/svg+xml"
+    />
 
     <!-- Custom Plain CSS -->
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/style.css" />
 
     <!-- GSAP & Three.js CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.147.0/three.js"></script>
     <script src="https://unpkg.com/three@0.147.0/examples/js/loaders/GLTFLoader.js"></script>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js" integrity="sha512-VEBjfxWUOyzl0bAwh4gdLEaQyDYPvLrZql3pw1ifgb6fhEvZl9iDDehwHZ+dsMzA0Jfww8Xt7COSZuJ/slxc4Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"
+      integrity="sha512-VEBjfxWUOyzl0bAwh4gdLEaQyDYPvLrZql3pw1ifgb6fhEvZl9iDDehwHZ+dsMzA0Jfww8Xt7COSZuJ/slxc4Q=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/ScrollToPlugin.min.js"></script>
 
@@ -24,420 +34,1100 @@
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lobster&family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-</head>
-
-<body>
+  <body>
     <!-- Loading Page -->
     <div class="loadingPage">
-        <div class="loadingPageCircle">
-            <svg xmlns="http://www.w3.org/2000/svg" width="108.098" height="83.098" viewBox="0 0 108.098 83.098" id="logoSVG">
-                <g id="Logo" transform="translate(54.137 -812.753)">
-                  <path id="Path_1" class="logoSVGPath" data-name="Path 1" d="M-48.232,893.658l46.464-46.465L-5.3,843.658l-46.464,46.464Z" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                  <path id="Path_2" class="logoSVGPath" data-name="Path 2" d="M26.768,868.658,0,895.425l-23.232-23.232,3.536-3.535L0,888.354l23.232-23.232L46.465,841.89,25,820.425l-19.7,19.7-3.536-3.536L25,813.354,53.535,841.89Z" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                  <path id="Path_3" class="logoSVGPath" data-name="Path 3" d="M-53.535,841.89-25,813.354" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                  <path id="Path_4" class="logoSVGPath" data-name="Path 4" d="M0,838.354l-25-25" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                  <path id="Path_5" class="logoSVGPath" data-name="Path 5" d="M-46.465,841.89-25,820.425" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                  <path id="Path_6" class="logoSVGPath" data-name="Path 6" d="M0,845.425l-25-25" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                  <path id="Path_7" class="logoSVGPath" data-name="Path 7" d="M51.768,890.122l-3.536,3.536L26.768,872.193l3.536-3.535Z" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                  <path id="Path_8" class="logoSVGPath" data-name="Path 8" d="M-3.536,841.89,0,845.425" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                  <path id="Path_9" class="logoSVGPath" data-name="Path 9" d="M0,838.354l3.536,3.536" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                  <path id="Path_10" class="logoSVGPath" data-name="Path 10" d="M25,863.354l-3.535,3.536" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                  <path id="Path_11" class="logoSVGPath" data-name="Path 11" d="M28.535,866.89,25,870.425" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                  <path id="Path_12" class="logoSVGPath" data-name="Path 12" d="M23.232,861.586,19.7,865.122" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                  <path id="Path_13" class="logoSVGPath" data-name="Path 13" d="M23.232,861.586,0,838.354" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                  <path id="Path_14" class="logoSVGPath" data-name="Path 14" d="M19.7,865.122,0,845.425" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                  <path id="Path_15" class="logoSVGPath" data-name="Path 15" d="M-25,870.425l3.535-3.535" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                  <path id="Path_16" class="logoSVGPath" data-name="Path 16" d="M-28.535,866.89-25,863.354" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                  <path id="Path_17" class="logoSVGPath" data-name="Path 17" d="M-30.3,865.122l3.536-3.536" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                  <path id="Path_18" class="logoSVGPath" data-name="Path 18" d="M-26.768,861.586l-19.7-19.7" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                  <path id="Path_19" class="logoSVGPath" data-name="Path 19" d="M-30.3,865.122-53.535,841.89" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                </g>
-            </svg>
-        </div>
+      <div class="loadingPageCircle">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="108.098"
+          height="83.098"
+          viewBox="0 0 108.098 83.098"
+          id="logoSVG"
+        >
+          <g id="Logo" transform="translate(54.137 -812.753)">
+            <path
+              id="Path_1"
+              class="logoSVGPath"
+              data-name="Path 1"
+              d="M-48.232,893.658l46.464-46.465L-5.3,843.658l-46.464,46.464Z"
+              fill="none"
+              stroke="#000"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="0.85"
+              fill-rule="evenodd"
+            />
+            <path
+              id="Path_2"
+              class="logoSVGPath"
+              data-name="Path 2"
+              d="M26.768,868.658,0,895.425l-23.232-23.232,3.536-3.535L0,888.354l23.232-23.232L46.465,841.89,25,820.425l-19.7,19.7-3.536-3.536L25,813.354,53.535,841.89Z"
+              fill="none"
+              stroke="#000"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="0.85"
+              fill-rule="evenodd"
+            />
+            <path
+              id="Path_3"
+              class="logoSVGPath"
+              data-name="Path 3"
+              d="M-53.535,841.89-25,813.354"
+              fill="none"
+              stroke="#000"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="0.85"
+              fill-rule="evenodd"
+            />
+            <path
+              id="Path_4"
+              class="logoSVGPath"
+              data-name="Path 4"
+              d="M0,838.354l-25-25"
+              fill="none"
+              stroke="#000"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="0.85"
+              fill-rule="evenodd"
+            />
+            <path
+              id="Path_5"
+              class="logoSVGPath"
+              data-name="Path 5"
+              d="M-46.465,841.89-25,820.425"
+              fill="none"
+              stroke="#000"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="0.85"
+              fill-rule="evenodd"
+            />
+            <path
+              id="Path_6"
+              class="logoSVGPath"
+              data-name="Path 6"
+              d="M0,845.425l-25-25"
+              fill="none"
+              stroke="#000"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="0.85"
+              fill-rule="evenodd"
+            />
+            <path
+              id="Path_7"
+              class="logoSVGPath"
+              data-name="Path 7"
+              d="M51.768,890.122l-3.536,3.536L26.768,872.193l3.536-3.535Z"
+              fill="none"
+              stroke="#000"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="0.85"
+              fill-rule="evenodd"
+            />
+            <path
+              id="Path_8"
+              class="logoSVGPath"
+              data-name="Path 8"
+              d="M-3.536,841.89,0,845.425"
+              fill="none"
+              stroke="#000"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="0.85"
+              fill-rule="evenodd"
+            />
+            <path
+              id="Path_9"
+              class="logoSVGPath"
+              data-name="Path 9"
+              d="M0,838.354l3.536,3.536"
+              fill="none"
+              stroke="#000"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="0.85"
+              fill-rule="evenodd"
+            />
+            <path
+              id="Path_10"
+              class="logoSVGPath"
+              data-name="Path 10"
+              d="M25,863.354l-3.535,3.536"
+              fill="none"
+              stroke="#000"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="0.85"
+              fill-rule="evenodd"
+            />
+            <path
+              id="Path_11"
+              class="logoSVGPath"
+              data-name="Path 11"
+              d="M28.535,866.89,25,870.425"
+              fill="none"
+              stroke="#000"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="0.85"
+              fill-rule="evenodd"
+            />
+            <path
+              id="Path_12"
+              class="logoSVGPath"
+              data-name="Path 12"
+              d="M23.232,861.586,19.7,865.122"
+              fill="none"
+              stroke="#000"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="0.85"
+              fill-rule="evenodd"
+            />
+            <path
+              id="Path_13"
+              class="logoSVGPath"
+              data-name="Path 13"
+              d="M23.232,861.586,0,838.354"
+              fill="none"
+              stroke="#000"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="0.85"
+              fill-rule="evenodd"
+            />
+            <path
+              id="Path_14"
+              class="logoSVGPath"
+              data-name="Path 14"
+              d="M19.7,865.122,0,845.425"
+              fill="none"
+              stroke="#000"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="0.85"
+              fill-rule="evenodd"
+            />
+            <path
+              id="Path_15"
+              class="logoSVGPath"
+              data-name="Path 15"
+              d="M-25,870.425l3.535-3.535"
+              fill="none"
+              stroke="#000"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="0.85"
+              fill-rule="evenodd"
+            />
+            <path
+              id="Path_16"
+              class="logoSVGPath"
+              data-name="Path 16"
+              d="M-28.535,866.89-25,863.354"
+              fill="none"
+              stroke="#000"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="0.85"
+              fill-rule="evenodd"
+            />
+            <path
+              id="Path_17"
+              class="logoSVGPath"
+              data-name="Path 17"
+              d="M-30.3,865.122l3.536-3.536"
+              fill="none"
+              stroke="#000"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="0.85"
+              fill-rule="evenodd"
+            />
+            <path
+              id="Path_18"
+              class="logoSVGPath"
+              data-name="Path 18"
+              d="M-26.768,861.586l-19.7-19.7"
+              fill="none"
+              stroke="#000"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="0.85"
+              fill-rule="evenodd"
+            />
+            <path
+              id="Path_19"
+              class="logoSVGPath"
+              data-name="Path 19"
+              d="M-30.3,865.122-53.535,841.89"
+              fill="none"
+              stroke="#000"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="0.85"
+              fill-rule="evenodd"
+            />
+          </g>
+        </svg>
+      </div>
     </div>
- 
 
     <!-- Three.js Canvas -->
     <canvas class="webgl"></canvas>
 
     <!-- Portfolio Body -->
     <main class="mainBody">
+      <!-- Flip Slider -->
+      <section class="flipSlider">
+        <input
+          type="range"
+          min="0"
+          max="180"
+          value="0"
+          class="slider mainBGColor"
+        />
+        <div class="sliderText">
+          <div class="sliderDot3 subBGColor"></div>
+          <div class="sliderDot2 subBGColor"></div>
+          <div class="sliderDot1 subBGColor"></div>
+          <div class="sliderFlipText mainColor">FLIP</div>
+          <div class="sliderDot1 subBGColor"></div>
+          <div class="sliderDot2 subBGColor"></div>
+          <div class="sliderDot3 subBGColor"></div>
+        </div>
+      </section>
 
-        <!-- Flip Slider -->
-        <section class="flipSlider">
-            <input type="range" min="0" max="180" value="0" class="slider mainBGColor">
-            <div class="sliderText">
-                <div class="sliderDot3 subBGColor"></div>
-                <div class="sliderDot2 subBGColor"></div>
-                <div class="sliderDot1 subBGColor"></div>
-                <div class="sliderFlipText mainColor">FLIP</div>
-                <div class="sliderDot1 subBGColor"></div>
-                <div class="sliderDot2 subBGColor"></div>
-                <div class="sliderDot3 subBGColor"></div>
+      <!-- Perspective -->
+      <div class="perspectiveChangeDiv">
+        <!-- Business Card Front -->
+        <section class="businessCardFront cardBGColor scaleCards">
+          <div class="topDiv">
+            <div class="headerDiv sliderBGColor">
+              <div class="headerSliderBody">
+                <!-- Left Side -->
+                <div class="headerTextReverseDiv">
+                  <div class="nameLeft">
+                    <div class="fnLeft mainColor">
+                      PATRICK
+                      <div class="titleTopLeftContainer">
+                        <div class="titleTopLeftParallax">
+                          <div class="titleTopLeft subColor">CREATIVE</div>
+                          <div class="titleTopLeft titleDupeTopLeft">
+                            CREATIVE
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="lnLeft mainColor">
+                      MUNAR
+                      <div class="titleBotLeftContainer">
+                        <div class="titleBotLeftParallax">
+                          <div class="titleBotLeft subColor">WEB DEV</div>
+                          <div class="titleBotRight titleDupeBotLeft">
+                            WEB DEV
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Main Slider Button -->
+                <div class="mainPhotoSlider mainBGColor">
+                  <img src="./images/MainPhoto.png" alt="" class="mainPhoto" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="108.098"
+                    height="83.098"
+                    viewBox="0 0 108.098 83.098"
+                    id="logoSVG"
+                  >
+                    <g id="Logo" transform="translate(54.137 -812.753)">
+                      <path
+                        id="Path_1"
+                        class="logoSVGPath"
+                        data-name="Path 1"
+                        d="M-48.232,893.658l46.464-46.465L-5.3,843.658l-46.464,46.464Z"
+                        fill="none"
+                        stroke="#000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="0.85"
+                        fill-rule="evenodd"
+                      />
+                      <path
+                        id="Path_2"
+                        class="logoSVGPath"
+                        data-name="Path 2"
+                        d="M26.768,868.658,0,895.425l-23.232-23.232,3.536-3.535L0,888.354l23.232-23.232L46.465,841.89,25,820.425l-19.7,19.7-3.536-3.536L25,813.354,53.535,841.89Z"
+                        fill="none"
+                        stroke="#000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="0.85"
+                        fill-rule="evenodd"
+                      />
+                      <path
+                        id="Path_3"
+                        class="logoSVGPath"
+                        data-name="Path 3"
+                        d="M-53.535,841.89-25,813.354"
+                        fill="none"
+                        stroke="#000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="0.85"
+                        fill-rule="evenodd"
+                      />
+                      <path
+                        id="Path_4"
+                        class="logoSVGPath"
+                        data-name="Path 4"
+                        d="M0,838.354l-25-25"
+                        fill="none"
+                        stroke="#000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="0.85"
+                        fill-rule="evenodd"
+                      />
+                      <path
+                        id="Path_5"
+                        class="logoSVGPath"
+                        data-name="Path 5"
+                        d="M-46.465,841.89-25,820.425"
+                        fill="none"
+                        stroke="#000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="0.85"
+                        fill-rule="evenodd"
+                      />
+                      <path
+                        id="Path_6"
+                        class="logoSVGPath"
+                        data-name="Path 6"
+                        d="M0,845.425l-25-25"
+                        fill="none"
+                        stroke="#000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="0.85"
+                        fill-rule="evenodd"
+                      />
+                      <path
+                        id="Path_7"
+                        class="logoSVGPath"
+                        data-name="Path 7"
+                        d="M51.768,890.122l-3.536,3.536L26.768,872.193l3.536-3.535Z"
+                        fill="none"
+                        stroke="#000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="0.85"
+                        fill-rule="evenodd"
+                      />
+                      <path
+                        id="Path_8"
+                        class="logoSVGPath"
+                        data-name="Path 8"
+                        d="M-3.536,841.89,0,845.425"
+                        fill="none"
+                        stroke="#000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="0.85"
+                        fill-rule="evenodd"
+                      />
+                      <path
+                        id="Path_9"
+                        class="logoSVGPath"
+                        data-name="Path 9"
+                        d="M0,838.354l3.536,3.536"
+                        fill="none"
+                        stroke="#000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="0.85"
+                        fill-rule="evenodd"
+                      />
+                      <path
+                        id="Path_10"
+                        class="logoSVGPath"
+                        data-name="Path 10"
+                        d="M25,863.354l-3.535,3.536"
+                        fill="none"
+                        stroke="#000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="0.85"
+                        fill-rule="evenodd"
+                      />
+                      <path
+                        id="Path_11"
+                        class="logoSVGPath"
+                        data-name="Path 11"
+                        d="M28.535,866.89,25,870.425"
+                        fill="none"
+                        stroke="#000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="0.85"
+                        fill-rule="evenodd"
+                      />
+                      <path
+                        id="Path_12"
+                        class="logoSVGPath"
+                        data-name="Path 12"
+                        d="M23.232,861.586,19.7,865.122"
+                        fill="none"
+                        stroke="#000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="0.85"
+                        fill-rule="evenodd"
+                      />
+                      <path
+                        id="Path_13"
+                        class="logoSVGPath"
+                        data-name="Path 13"
+                        d="M23.232,861.586,0,838.354"
+                        fill="none"
+                        stroke="#000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="0.85"
+                        fill-rule="evenodd"
+                      />
+                      <path
+                        id="Path_14"
+                        class="logoSVGPath"
+                        data-name="Path 14"
+                        d="M19.7,865.122,0,845.425"
+                        fill="none"
+                        stroke="#000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="0.85"
+                        fill-rule="evenodd"
+                      />
+                      <path
+                        id="Path_15"
+                        class="logoSVGPath"
+                        data-name="Path 15"
+                        d="M-25,870.425l3.535-3.535"
+                        fill="none"
+                        stroke="#000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="0.85"
+                        fill-rule="evenodd"
+                      />
+                      <path
+                        id="Path_16"
+                        class="logoSVGPath"
+                        data-name="Path 16"
+                        d="M-28.535,866.89-25,863.354"
+                        fill="none"
+                        stroke="#000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="0.85"
+                        fill-rule="evenodd"
+                      />
+                      <path
+                        id="Path_17"
+                        class="logoSVGPath"
+                        data-name="Path 17"
+                        d="M-30.3,865.122l3.536-3.536"
+                        fill="none"
+                        stroke="#000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="0.85"
+                        fill-rule="evenodd"
+                      />
+                      <path
+                        id="Path_18"
+                        class="logoSVGPath"
+                        data-name="Path 18"
+                        d="M-26.768,861.586l-19.7-19.7"
+                        fill="none"
+                        stroke="#000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="0.85"
+                        fill-rule="evenodd"
+                      />
+                      <path
+                        id="Path_19"
+                        class="logoSVGPath"
+                        data-name="Path 19"
+                        d="M-30.3,865.122-53.535,841.89"
+                        fill="none"
+                        stroke="#000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="0.85"
+                        fill-rule="evenodd"
+                      />
+                    </g>
+                  </svg>
+                </div>
+
+                <!-- Right Side -->
+                <div class="headerTextDiv">
+                  <div class="nameRight">
+                    <div class="fnRight mainColor">
+                      PATRICK
+                      <div class="titleTopRightContainer">
+                        <div class="titleTopRightParallax">
+                          <div class="titleTopRight subColor">CREATIVE</div>
+                          <div class="titleTopRight titleDupeTopRight">
+                            CREATIVE
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="lnRight mainColor">
+                      MUNAR
+                      <div class="titleBotRightContainer">
+                        <div class="titleBotRightParallax">
+                          <div class="titleBotRight subColor">WEB DEV</div>
+                          <div class="titleBotRight titleDupeBotRight">
+                            WEB DEV
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+
+            <!-- Quotes -->
+            <div class="quotationDiv">
+              <div class="leftQuote quotes mainColor">“</div>
+              <div class="quotationGap"></div>
+              <div class="rightQuote quotes mainColor">”</div>
+            </div>
+
+            <!-- Adjectives -->
+            <div class="topSummaryTextDiv">I mix web & 3D together</div>
+
+            <div class="bottomSummaryTextDiv mainCOlor">
+              <t class="bottomSummaryLeft">to make</t>&nbsp;
+
+              <div class="adjective">
+                <div class="adjectiveContainer">
+                  <div class="adjectiveText mainColor">immersive</div>
+                </div>
+
+                <div class="adjectiveContainer">
+                  <div class="adjectiveText mainColor">memorable</div>
+                </div>
+
+                <div class="adjectiveContainer">
+                  <div class="adjectiveText mainColor">fun playful</div>
+                </div>
+
+                <div class="adjectiveContainer">
+                  <div class="adjectiveText mainColor">dope-lookin'</div>
+                </div>
+
+                <div class="adjectiveContainer">
+                  <div class="adjectiveText mainColor">interactive</div>
+                </div>
+
+                <div class="adjectiveContainer">
+                  <div class="adjectiveText mainColor">eye-catching</div>
+                </div>
+              </div>
+
+              &nbsp;<t class="bottomSummaryLeft">web experiences.</t>
+            </div>
+
+            <!-- Skills -->
+            <div class="skillsDiv">
+              <div class="skill">
+                <t class="skillText">Front-end Development</t>
+                <div class="skillUnderline mainBGColor"></div>
+              </div>
+              <div class="skill">
+                <t class="skillText">Interactive Animations</t>
+                <div class="skillUnderline mainBGColor"></div>
+              </div>
+              <div class="skill">
+                <t class="skillText">3D Web Integration</t>
+                <div class="skillUnderline mainBGColor"></div>
+              </div>
+              <div class="skill">
+                <t class="skillText">3D Modelling</t>
+                <div class="skillUnderline mainBGColor"></div>
+              </div>
+            </div>
+
+            <!-- Brackets -->
+            <div class="bracketDiv">
+              <div class="leftBracket brackets mainColor">{</div>
+              <div class="bracketGap">
+                <div class="bracketSkillsContainer">
+                  <div class="bracketSkills mainColor">HTML / CSS / JS</div>
+                  <div class="bracketSkillsDupe subColor">HTML / CSS / JS</div>
+                </div>
+
+                <div class="bracketSkillsContainer">
+                  <div class="bracketSkills mainColor">
+                    GSAP / SCROLLTRIGGER
+                  </div>
+                  <div class="bracketSkillsDupe subColor">
+                    GSAP / SCROLLTRIGGER
+                  </div>
+                </div>
+
+                <div class="bracketSkillsContainer">
+                  <div class="bracketSkills mainColor">THREE.JS / WEBGL</div>
+                  <div class="bracketSkillsDupe subColor">THREE.JS / WEBGL</div>
+                </div>
+
+                <div class="bracketSkillsContainer">
+                  <div class="bracketSkills mainColor">
+                    FUSION 360 / BLENDER
+                  </div>
+                  <div class="bracketSkillsDupe subColor">
+                    FUSION 360 / BLENDER
+                  </div>
+                </div>
+              </div>
+              <div class="rightBracket brackets mainColor">}</div>
+            </div>
+          </div>
+
+          <div class="bottomDiv"></div>
+
+          <!-- Front Canvas -->
+          <canvas class="frontCanvas"></canvas>
+
+          <!-- Mobile | Front Cover -->
+          <div class="frontCover">
+            <div class="strip subBGColor"></div>
+          </div>
         </section>
 
-        <!-- Perspective -->
-        <div class="perspectiveChangeDiv">
+        <!-- Business Card Back -->
+        <section class="businessCardBack cardBGColor scaleCards">
+          <div class="topDiv">
+            <!-- Links -->
+            <a
+              href="https://lab.patrickmunar.com/"
+              id="linkDiv1"
+              class="chainLink"
+            >
+              <div class="linkDiv mainBGColor">
+                <div class="linkText subColor">My Portfolio</div>
+                <div class="linkTextDupe">My Portfolio</div>
+              </div>
+              <div class="linkDivDupe subBGColor">
+                <div class="linkText subColor">My Portfolio</div>
+                <div class="linkTextDupe">My Portfolio</div>
+              </div>
+            </a>
 
-            <!-- Business Card Front -->
-            <section class="businessCardFront cardBGColor scaleCards">
-                <div class="topDiv">
-                    <div class="headerDiv sliderBGColor">
+            <a
+              href="https://github.com/PatrickMunar"
+              id="linkDiv2"
+              class="chainLink"
+            >
+              <div class="linkDiv mainBGColor">
+                <div class="linkText subColor">Github</div>
+                <div class="linkTextDupe">Github</div>
+              </div>
+              <div class="linkDivDupe subBGColor">
+                <div class="linkText subColor">Github</div>
+                <div class="linkTextDupe">Github</div>
+              </div>
+            </a>
 
-                        <div class="headerSliderBody">
+            <a
+              href="https://twitter.com/LilRuii"
+              id="linkDiv3"
+              class="chainLink"
+            >
+              <div class="linkDiv mainBGColor">
+                <div class="linkText subColor">Twitter</div>
+                <div class="linkTextDupe">Twitter</div>
+              </div>
+              <div class="linkDivDupe subBGColor">
+                <div class="linkText subColor">Twitter</div>
+                <div class="linkTextDupe">Twitter</div>
+              </div>
+            </a>
 
-                            <!-- Left Side -->
-                            <div class="headerTextReverseDiv">
-                                
-                                <div class="nameLeft">
-                                    <div class="fnLeft mainColor">
-                                        PATRICK
-                                        <div class="titleTopLeftContainer">
-                                            <div class="titleTopLeftParallax">
-                                                <div class="titleTopLeft subColor">CREATIVE</div>
-                                                <div class="titleTopLeft titleDupeTopLeft">CREATIVE</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="lnLeft mainColor">
-                                        MUNAR
-                                        <div class="titleBotLeftContainer">
-                                            <div class="titleBotLeftParallax">
-                                                <div class="titleBotLeft subColor">WEB DEV</div>
-                                                <div class="titleBotRight titleDupeBotLeft">WEB DEV</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+            <a
+              href="https://www.linkedin.com/in/rptmunar/"
+              id="linkDiv4"
+              class="chainLink"
+            >
+              <div class="linkDiv mainBGColor">
+                <div class="linkText subColor">LinkedIn</div>
+                <div class="linkTextDupe">LinkedIn</div>
+              </div>
+              <div class="linkDivDupe subBGColor">
+                <div class="linkText subColor">LinkedIn</div>
+                <div class="linkTextDupe">LinkedIn</div>
+              </div>
+            </a>
 
-                            </div>
+            <!-- Form -->
+            <form action="" method="" class="contactForm">
+              <div class="formHeader mainColor">FILL IN THE BLANKS</div>
 
-                            <!-- Main Slider Button -->
-                            <div class="mainPhotoSlider mainBGColor">
-                                <img src="./images/MainPhoto.png" alt="" class="mainPhoto"/>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="108.098" height="83.098" viewBox="0 0 108.098 83.098" id="logoSVG">
-                                    <g id="Logo" transform="translate(54.137 -812.753)">
-                                      <path id="Path_1" class="logoSVGPath" data-name="Path 1" d="M-48.232,893.658l46.464-46.465L-5.3,843.658l-46.464,46.464Z" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                                      <path id="Path_2" class="logoSVGPath" data-name="Path 2" d="M26.768,868.658,0,895.425l-23.232-23.232,3.536-3.535L0,888.354l23.232-23.232L46.465,841.89,25,820.425l-19.7,19.7-3.536-3.536L25,813.354,53.535,841.89Z" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                                      <path id="Path_3" class="logoSVGPath" data-name="Path 3" d="M-53.535,841.89-25,813.354" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                                      <path id="Path_4" class="logoSVGPath" data-name="Path 4" d="M0,838.354l-25-25" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                                      <path id="Path_5" class="logoSVGPath" data-name="Path 5" d="M-46.465,841.89-25,820.425" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                                      <path id="Path_6" class="logoSVGPath" data-name="Path 6" d="M0,845.425l-25-25" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                                      <path id="Path_7" class="logoSVGPath" data-name="Path 7" d="M51.768,890.122l-3.536,3.536L26.768,872.193l3.536-3.535Z" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                                      <path id="Path_8" class="logoSVGPath" data-name="Path 8" d="M-3.536,841.89,0,845.425" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                                      <path id="Path_9" class="logoSVGPath" data-name="Path 9" d="M0,838.354l3.536,3.536" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                                      <path id="Path_10" class="logoSVGPath" data-name="Path 10" d="M25,863.354l-3.535,3.536" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                                      <path id="Path_11" class="logoSVGPath" data-name="Path 11" d="M28.535,866.89,25,870.425" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                                      <path id="Path_12" class="logoSVGPath" data-name="Path 12" d="M23.232,861.586,19.7,865.122" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                                      <path id="Path_13" class="logoSVGPath" data-name="Path 13" d="M23.232,861.586,0,838.354" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                                      <path id="Path_14" class="logoSVGPath" data-name="Path 14" d="M19.7,865.122,0,845.425" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                                      <path id="Path_15" class="logoSVGPath" data-name="Path 15" d="M-25,870.425l3.535-3.535" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                                      <path id="Path_16" class="logoSVGPath" data-name="Path 16" d="M-28.535,866.89-25,863.354" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                                      <path id="Path_17" class="logoSVGPath" data-name="Path 17" d="M-30.3,865.122l3.536-3.536" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                                      <path id="Path_18" class="logoSVGPath" data-name="Path 18" d="M-26.768,861.586l-19.7-19.7" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                                      <path id="Path_19" class="logoSVGPath" data-name="Path 19" d="M-30.3,865.122-53.535,841.89" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                                    </g>
-                                </svg>
-                            </div>
-                            
-                            <!-- Right Side -->
-                            <div class="headerTextDiv">
-
-                                <div class="nameRight">
-                                    <div class="fnRight mainColor">
-                                        PATRICK
-                                        <div class="titleTopRightContainer">
-                                            <div class="titleTopRightParallax">
-                                                <div class="titleTopRight subColor">CREATIVE</div>
-                                                <div class="titleTopRight titleDupeTopRight">CREATIVE</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="lnRight mainColor">
-                                        MUNAR
-                                        <div class="titleBotRightContainer">
-                                            <div class="titleBotRightParallax">
-                                                <div class="titleBotRight subColor">WEB DEV</div>
-                                                <div class="titleBotRight titleDupeBotRight">WEB DEV</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                               
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!-- Quotes -->
-                    <div class="quotationDiv">
-                        <div class="leftQuote quotes mainColor">“</div>
-                        <div class="quotationGap"></div>
-                        <div class="rightQuote quotes mainColor">”</div>
-                    </div>
-
-                    <!-- Adjectives -->
-                    <div class="topSummaryTextDiv">
-                        I mix web & 3D together
-                    </div>
-
-                    <div class="bottomSummaryTextDiv mainCOlor">
-                        <t class="bottomSummaryLeft">to make</t>&nbsp;
-
-                        <div class="adjective">
-                            <div class="adjectiveContainer">
-                                <div class="adjectiveText mainColor">immersive</div>
-                            </div>
-
-                            <div class="adjectiveContainer">
-                                <div class="adjectiveText mainColor">memorable</div>
-                            </div>
-
-                            <div class="adjectiveContainer">
-                                <div class="adjectiveText mainColor">fun playful</div>
-                            </div>
-
-                            <div class="adjectiveContainer">
-                                <div class="adjectiveText mainColor">dope-lookin'</div>
-                            </div>
-
-                            <div class="adjectiveContainer">
-                                <div class="adjectiveText mainColor">interactive</div>
-                            </div>
-
-                            <div class="adjectiveContainer">
-                                <div class="adjectiveText mainColor">eye-catching</div>
-                            </div>
-                        </div>
-
-                        &nbsp;<t class="bottomSummaryLeft">web experiences.</t>
-                    </div>
-
-                    <!-- Skills -->
-                    <div class="skillsDiv">
-                        <div class="skill">
-                            <t class="skillText">Front-end Development</t>
-                            <div class="skillUnderline mainBGColor"></div>
-                        </div>
-                        <div class="skill">
-                            <t class="skillText">Interactive Animations</t>
-                            <div class="skillUnderline mainBGColor"></div>
-                        </div>
-                        <div class="skill">
-                            <t class="skillText">3D Web Integration</t>
-                            <div class="skillUnderline mainBGColor"></div>
-                        </div>
-                        <div class="skill">
-                            <t class="skillText">3D Modelling</t>
-                            <div class="skillUnderline mainBGColor"></div>
-                        </div>
-                    </div>
-
-                    <!-- Brackets -->
-                    <div class="bracketDiv">
-                        <div class="leftBracket brackets mainColor">{</div>
-                        <div class="bracketGap">
-                            <div class="bracketSkillsContainer">
-                                <div class="bracketSkills mainColor">
-                                    HTML / CSS / JS
-                                </div>
-                                <div class="bracketSkillsDupe subColor">
-                                    HTML / CSS / JS
-                                </div>
-                            </div>
-
-                            <div class="bracketSkillsContainer">
-                                <div class="bracketSkills mainColor">
-                                    GSAP / SCROLLTRIGGER
-                                </div>
-                                <div class="bracketSkillsDupe subColor">
-                                    GSAP / SCROLLTRIGGER
-                                </div>
-                            </div>
-
-                            <div class="bracketSkillsContainer">
-                                <div class="bracketSkills mainColor">
-                                    THREE.JS / WEBGL
-                                </div>
-                                <div class="bracketSkillsDupe subColor">
-                                    THREE.JS / WEBGL
-                                </div>
-                            </div>
-
-                            <div class="bracketSkillsContainer">
-                                <div class="bracketSkills mainColor">
-                                    FUSION 360 / BLENDER
-                                </div>
-                                <div class="bracketSkillsDupe subColor">
-                                    FUSION 360 / BLENDER
-                                </div>
-                            </div>
-                        </div>
-                        <div class="rightBracket brackets mainColor">}</div>
-                    </div>
-                    
+              <div class="inputDiv">
+                <div class="nameInputText">Hi! I am&nbsp;</div>
+                <div class="inputContainerDiv" id="nameContainerDiv">
+                  <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    class="inputText"
+                    placeholder="'name'"
+                  />
+                  <div
+                    class="inputUnderline mainBGColor"
+                    id="nameUnderline"
+                  ></div>
                 </div>
+                <div class="nameInputText">&nbsp;and</div>
+              </div>
 
-                <div class="bottomDiv"></div>
-
-                <!-- Front Canvas -->
-                <canvas class="frontCanvas"></canvas>
-
-                <!-- Mobile | Front Cover -->
-                <div class="frontCover">
-                    <div class="strip subBGColor"></div>
+              <div class="inputDiv">
+                <div class="emailInputText">this message is about&nbsp;</div>
+                <div class="inputContainerDiv" id="emailContainerDiv">
+                  <input
+                    type="text"
+                    name="about"
+                    id="about"
+                    class="inputEmail"
+                    placeholder="'topic'"
+                  />
+                  <div
+                    class="inputUnderline mainBGColor"
+                    id="aboutUnderline"
+                  ></div>
                 </div>
+                <div class="emailInputText">.</div>
+              </div>
 
-            </section>
-    
-            <!-- Business Card Back -->
-            <section class="businessCardBack cardBGColor scaleCards">
-
-                <div class="topDiv">
-                        <!-- Links -->
-                        <a href="https://www.patrickmunar.com" id="linkDiv1" class="chainLink">
-                            <div class="linkDiv mainBGColor">
-                                <div class="linkText subColor">My Portfolio</div>
-                                <div class="linkTextDupe">My Portfolio</div>
-                            </div>
-                            <div class="linkDivDupe subBGColor">
-                                <div class="linkText subColor">My Portfolio</div>
-                                <div class="linkTextDupe">My Portfolio</div>
-                            </div>
-                        </a>
-
-                        <a href="https://github.com/PatrickMunar" id="linkDiv2" class="chainLink">
-                            <div class="linkDiv mainBGColor">
-                                <div class="linkText subColor">Github</div>
-                                <div class="linkTextDupe">Github</div>
-                            </div>
-                            <div class="linkDivDupe subBGColor">
-                                <div class="linkText subColor">Github</div>
-                                <div class="linkTextDupe">Github</div>
-                            </div>
-                        </a>
-
-                        <a href="https://twitter.com/LilRuii" id="linkDiv3" class="chainLink">
-                            <div class="linkDiv mainBGColor">
-                                <div class="linkText subColor">Twitter</div>
-                                <div class="linkTextDupe">Twitter</div>
-                            </div>
-                            <div class="linkDivDupe subBGColor">
-                                <div class="linkText subColor">Twitter</div>
-                                <div class="linkTextDupe">Twitter</div>
-                            </div>
-                        </a>
-
-                        <a href="https://www.linkedin.com/in/rptmunar/" id="linkDiv4" class="chainLink">
-                            <div class="linkDiv mainBGColor">
-                                <div class="linkText subColor">LinkedIn</div>
-                                <div class="linkTextDupe">LinkedIn</div>
-                            </div>
-                            <div class="linkDivDupe subBGColor">
-                                <div class="linkText subColor">LinkedIn</div>
-                                <div class="linkTextDupe">LinkedIn</div>
-                            </div>
-                        </a>
-
-                        <!-- Form -->
-                        <form action="" method="" class="contactForm">
-                            <div class="formHeader mainColor">FILL IN THE BLANKS</div>
-
-                            <div class="inputDiv">
-                                <div class="nameInputText">Hi! I am&nbsp;</div>
-                                <div class="inputContainerDiv" id="nameContainerDiv">
-                                    <input type="text" name="name" id="name" class="inputText" placeholder="'name'">
-                                    <div class="inputUnderline mainBGColor" id="nameUnderline"></div>
-                                </div>
-                                <div class="nameInputText">&nbsp;and</div>
-                            </div>
-
-                            <div class="inputDiv">
-                                <div class="emailInputText">this message is about&nbsp;</div>
-                                <div class="inputContainerDiv" id="emailContainerDiv">
-                                    <input type="text" name="about" id="about" class="inputEmail" placeholder="'topic'">
-                                    <div class="inputUnderline mainBGColor" id="aboutUnderline"></div>
-                                </div>
-                                <div class="emailInputText">.</div>
-                            </div>
-
-                            <div class="messageDiv">
-                                <div class="messageInputText">I just want to say . . .&nbsp;</div>
-                                <textarea name="message" id="message" cols="30" rows="10" placeholder="'thoughts, comments, proposals, color suggestions, anything under the sun'"></textarea>
-                            </div>
-
-                            <div class="messageDiv">
-                                <div class="messageInputText">Lastly, . . .&nbsp;</div>
-                            </div>
-
-                            <div class="checkboxDiv" id="cardCheckbox">
-                                <div class="checkbox">
-                                    <div class="tick mainBGColor" id="cardTick"></div>
-                                </div>
-                                <div class="checkboxInputText">I would like a card of my own!</div>
-                            </div>
-
-                            <div class="checkboxDiv" id="workCheckbox">
-                                <div class="checkbox">
-                                    <div class="tick mainBGColor" id="workTick"></div>
-                                </div>
-                                <div class="checkboxInputText">Let's make cool stuff together!</div>
-                            </div>
-                        </form>
-
-                        <!-- Submit Button -->
-                        <div type="submit" class="submitButtonDiv mainColor">
-                            MAIL IT
-                            <div class="submitBackground"></div>
-                            <a href="" class="mailToLink"></a>
-                        </div>
-
+              <div class="messageDiv">
+                <div class="messageInputText">
+                  I just want to say . . .&nbsp;
                 </div>
-                
-                <div class="bottomDiv"></div>
+                <textarea
+                  name="message"
+                  id="message"
+                  cols="30"
+                  rows="10"
+                  placeholder="'thoughts, comments, proposals, color suggestions, anything under the sun'"
+                ></textarea>
+              </div>
 
-                <!-- Back Canvas -->
-                <canvas class="backCanvas"></canvas>
+              <div class="messageDiv">
+                <div class="messageInputText">Lastly, . . .&nbsp;</div>
+              </div>
 
-                <!-- Mobile | Back Cover -->
-                <div class="backCover">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="108.098" height="83.098" viewBox="0 0 108.098 83.098" id="logoSVGBack">
-                        <g id="Logo" transform="translate(54.137 -812.753)">
-                          <path id="Path_1" class="logoSVGPathBack" data-name="Path 1" d="M-48.232,893.658l46.464-46.465L-5.3,843.658l-46.464,46.464Z" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                          <path id="Path_2" class="logoSVGPathBack" data-name="Path 2" d="M26.768,868.658,0,895.425l-23.232-23.232,3.536-3.535L0,888.354l23.232-23.232L46.465,841.89,25,820.425l-19.7,19.7-3.536-3.536L25,813.354,53.535,841.89Z" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                          <path id="Path_3" class="logoSVGPathBack" data-name="Path 3" d="M-53.535,841.89-25,813.354" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                          <path id="Path_4" class="logoSVGPathBack" data-name="Path 4" d="M0,838.354l-25-25" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                          <path id="Path_5" class="logoSVGPathBack" data-name="Path 5" d="M-46.465,841.89-25,820.425" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                          <path id="Path_6" class="logoSVGPathBack" data-name="Path 6" d="M0,845.425l-25-25" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                          <path id="Path_7" class="logoSVGPathBack" data-name="Path 7" d="M51.768,890.122l-3.536,3.536L26.768,872.193l3.536-3.535Z" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                          <path id="Path_8" class="logoSVGPathBack" data-name="Path 8" d="M-3.536,841.89,0,845.425" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                          <path id="Path_9" class="logoSVGPathBack" data-name="Path 9" d="M0,838.354l3.536,3.536" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                          <path id="Path_10" class="logoSVGPathBack" data-name="Path 10" d="M25,863.354l-3.535,3.536" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                          <path id="Path_11" class="logoSVGPathBack" data-name="Path 11" d="M28.535,866.89,25,870.425" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                          <path id="Path_12" class="logoSVGPathBack" data-name="Path 12" d="M23.232,861.586,19.7,865.122" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                          <path id="Path_13" class="logoSVGPathBack" data-name="Path 13" d="M23.232,861.586,0,838.354" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                          <path id="Path_14" class="logoSVGPathBack" data-name="Path 14" d="M19.7,865.122,0,845.425" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                          <path id="Path_15" class="logoSVGPathBack" data-name="Path 15" d="M-25,870.425l3.535-3.535" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                          <path id="Path_16" class="logoSVGPathBack" data-name="Path 16" d="M-28.535,866.89-25,863.354" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                          <path id="Path_17" class="logoSVGPathBack" data-name="Path 17" d="M-30.3,865.122l3.536-3.536" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                          <path id="Path_18" class="logoSVGPathBack" data-name="Path 18" d="M-26.768,861.586l-19.7-19.7" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                          <path id="Path_19" class="logoSVGPathBack" data-name="Path 19" d="M-30.3,865.122-53.535,841.89" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.85" fill-rule="evenodd"/>
-                        </g>
-                    </svg>
+              <div class="checkboxDiv" id="cardCheckbox">
+                <div class="checkbox">
+                  <div class="tick mainBGColor" id="cardTick"></div>
                 </div>
+                <div class="checkboxInputText">
+                  I would like a card of my own!
+                </div>
+              </div>
 
-            </section>
+              <div class="checkboxDiv" id="workCheckbox">
+                <div class="checkbox">
+                  <div class="tick mainBGColor" id="workTick"></div>
+                </div>
+                <div class="checkboxInputText">
+                  Let's make cool stuff together!
+                </div>
+              </div>
+            </form>
 
-        </div>
+            <!-- Submit Button -->
+            <div type="submit" class="submitButtonDiv mainColor">
+              MAIL IT
+              <div class="submitBackground"></div>
+              <a href="" class="mailToLink"></a>
+            </div>
+          </div>
 
+          <div class="bottomDiv"></div>
+
+          <!-- Back Canvas -->
+          <canvas class="backCanvas"></canvas>
+
+          <!-- Mobile | Back Cover -->
+          <div class="backCover">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="108.098"
+              height="83.098"
+              viewBox="0 0 108.098 83.098"
+              id="logoSVGBack"
+            >
+              <g id="Logo" transform="translate(54.137 -812.753)">
+                <path
+                  id="Path_1"
+                  class="logoSVGPathBack"
+                  data-name="Path 1"
+                  d="M-48.232,893.658l46.464-46.465L-5.3,843.658l-46.464,46.464Z"
+                  fill="none"
+                  stroke="#000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="0.85"
+                  fill-rule="evenodd"
+                />
+                <path
+                  id="Path_2"
+                  class="logoSVGPathBack"
+                  data-name="Path 2"
+                  d="M26.768,868.658,0,895.425l-23.232-23.232,3.536-3.535L0,888.354l23.232-23.232L46.465,841.89,25,820.425l-19.7,19.7-3.536-3.536L25,813.354,53.535,841.89Z"
+                  fill="none"
+                  stroke="#000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="0.85"
+                  fill-rule="evenodd"
+                />
+                <path
+                  id="Path_3"
+                  class="logoSVGPathBack"
+                  data-name="Path 3"
+                  d="M-53.535,841.89-25,813.354"
+                  fill="none"
+                  stroke="#000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="0.85"
+                  fill-rule="evenodd"
+                />
+                <path
+                  id="Path_4"
+                  class="logoSVGPathBack"
+                  data-name="Path 4"
+                  d="M0,838.354l-25-25"
+                  fill="none"
+                  stroke="#000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="0.85"
+                  fill-rule="evenodd"
+                />
+                <path
+                  id="Path_5"
+                  class="logoSVGPathBack"
+                  data-name="Path 5"
+                  d="M-46.465,841.89-25,820.425"
+                  fill="none"
+                  stroke="#000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="0.85"
+                  fill-rule="evenodd"
+                />
+                <path
+                  id="Path_6"
+                  class="logoSVGPathBack"
+                  data-name="Path 6"
+                  d="M0,845.425l-25-25"
+                  fill="none"
+                  stroke="#000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="0.85"
+                  fill-rule="evenodd"
+                />
+                <path
+                  id="Path_7"
+                  class="logoSVGPathBack"
+                  data-name="Path 7"
+                  d="M51.768,890.122l-3.536,3.536L26.768,872.193l3.536-3.535Z"
+                  fill="none"
+                  stroke="#000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="0.85"
+                  fill-rule="evenodd"
+                />
+                <path
+                  id="Path_8"
+                  class="logoSVGPathBack"
+                  data-name="Path 8"
+                  d="M-3.536,841.89,0,845.425"
+                  fill="none"
+                  stroke="#000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="0.85"
+                  fill-rule="evenodd"
+                />
+                <path
+                  id="Path_9"
+                  class="logoSVGPathBack"
+                  data-name="Path 9"
+                  d="M0,838.354l3.536,3.536"
+                  fill="none"
+                  stroke="#000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="0.85"
+                  fill-rule="evenodd"
+                />
+                <path
+                  id="Path_10"
+                  class="logoSVGPathBack"
+                  data-name="Path 10"
+                  d="M25,863.354l-3.535,3.536"
+                  fill="none"
+                  stroke="#000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="0.85"
+                  fill-rule="evenodd"
+                />
+                <path
+                  id="Path_11"
+                  class="logoSVGPathBack"
+                  data-name="Path 11"
+                  d="M28.535,866.89,25,870.425"
+                  fill="none"
+                  stroke="#000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="0.85"
+                  fill-rule="evenodd"
+                />
+                <path
+                  id="Path_12"
+                  class="logoSVGPathBack"
+                  data-name="Path 12"
+                  d="M23.232,861.586,19.7,865.122"
+                  fill="none"
+                  stroke="#000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="0.85"
+                  fill-rule="evenodd"
+                />
+                <path
+                  id="Path_13"
+                  class="logoSVGPathBack"
+                  data-name="Path 13"
+                  d="M23.232,861.586,0,838.354"
+                  fill="none"
+                  stroke="#000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="0.85"
+                  fill-rule="evenodd"
+                />
+                <path
+                  id="Path_14"
+                  class="logoSVGPathBack"
+                  data-name="Path 14"
+                  d="M19.7,865.122,0,845.425"
+                  fill="none"
+                  stroke="#000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="0.85"
+                  fill-rule="evenodd"
+                />
+                <path
+                  id="Path_15"
+                  class="logoSVGPathBack"
+                  data-name="Path 15"
+                  d="M-25,870.425l3.535-3.535"
+                  fill="none"
+                  stroke="#000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="0.85"
+                  fill-rule="evenodd"
+                />
+                <path
+                  id="Path_16"
+                  class="logoSVGPathBack"
+                  data-name="Path 16"
+                  d="M-28.535,866.89-25,863.354"
+                  fill="none"
+                  stroke="#000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="0.85"
+                  fill-rule="evenodd"
+                />
+                <path
+                  id="Path_17"
+                  class="logoSVGPathBack"
+                  data-name="Path 17"
+                  d="M-30.3,865.122l3.536-3.536"
+                  fill="none"
+                  stroke="#000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="0.85"
+                  fill-rule="evenodd"
+                />
+                <path
+                  id="Path_18"
+                  class="logoSVGPathBack"
+                  data-name="Path 18"
+                  d="M-26.768,861.586l-19.7-19.7"
+                  fill="none"
+                  stroke="#000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="0.85"
+                  fill-rule="evenodd"
+                />
+                <path
+                  id="Path_19"
+                  class="logoSVGPathBack"
+                  data-name="Path 19"
+                  d="M-30.3,865.122-53.535,841.89"
+                  fill="none"
+                  stroke="#000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="0.85"
+                  fill-rule="evenodd"
+                />
+              </g>
+            </svg>
+          </div>
+        </section>
+      </div>
     </main>
-    
+
     <!-- JavaScript -->
     <script type="module" src="./js/script.js"></script>
-</body>
+  </body>
 </html>
