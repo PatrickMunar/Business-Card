@@ -370,10 +370,10 @@ const frontCanvas = () => {
   const scene = new THREE.Scene()
 
   // Lighting
-  const ambientLight = new THREE.AmbientLight(0xf3f3f3, 0.5)
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
   scene.add(ambientLight)
 
-  const directionalLight = new THREE.PointLight(0xf3f3f3, 1)
+  const directionalLight = new THREE.PointLight(0xffffff, 1)
   directionalLight.position.set(0, 10, 10)
   scene.add(directionalLight)
 
@@ -957,10 +957,10 @@ const backCanvas = () => {
   const scene = new THREE.Scene()
 
   // Lighting
-  const ambientLight = new THREE.AmbientLight(0xff4f00, 0.5)
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
   scene.add(ambientLight)
 
-  const directionalLight = new THREE.PointLight(0xf3f3f3, 1)
+  const directionalLight = new THREE.PointLight(0xffffff, 1)
   directionalLight.position.set(0, 10, 10)
   scene.add(directionalLight)
 
